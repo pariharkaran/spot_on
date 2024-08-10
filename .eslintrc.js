@@ -1,0 +1,88 @@
+module.exports = {
+  ignorePatterns: [
+    "**/codegen-plugins/*",
+    "**/generated-graphql-types/*",
+    "**/declaration-overrides/*",
+    ".eslintrc.js",
+  ],
+  env: {
+    es2021: true,
+    node: true,
+    jest: true,
+    "jest/globals": true,
+    "detox/detox": true,
+  },
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "prettier",
+  ],
+  globals: {
+    Atomics: "readonly",
+    SharedArrayBuffer: "readonly",
+    expect: true,
+  },
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    project: "./tsconfig.eslint.json",
+    tsconfigRootDir: __dirname,
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2021,
+    sourceType: "module",
+  },
+  plugins: [
+    "jest",
+    "detox",
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "unused-imports",
+    "prettier",
+  ],
+  rules: {
+    "prettier/prettier": 2,
+    indent: "off",
+    "linebreak-style": [
+      "error",
+      process.platform === "win32" ? "windows" : "unix",
+    ],
+    quotes: ["error", "single", { avoidEscape: true }],
+    semi: ["error", "never"],
+    "no-empty-function": "off",
+    eqeqeq: "error",
+    "@typescript-eslint/no-empty-function": "off",
+    "react/display-name": "off",
+    "react/prop-types": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/strict-boolean-expressions": "error",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "error",
+      {
+        vars: "all",
+        varsIgnorePattern: "^_",
+        args: "after-used",
+        argsIgnorePattern: "^_",
+      },
+    ],
+    "no-shadow": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      { checksVoidReturn: { attributes: false, properties: false } },
+    ],
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
+};

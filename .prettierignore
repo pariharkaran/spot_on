@@ -1,0 +1,5 @@
+.prettierrc.js
+.eslintrc.js
+**/generated-graphql-types/*
+**/codegen-plugins/*
+**/declaration-overrides/*
