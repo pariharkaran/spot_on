@@ -55,7 +55,7 @@ function ApiServicesWrapper(props: PropsWithChildren) {
             async error => {
                 const stringifiedError = JSON.stringify(error)
                 const errorJson = JSON.parse(stringifiedError)
-                if (errorJson.status === 401 || errorJson.status === 400) {
+                if (errorJson.status === 401) {
                     // uncomment once API integration is done
                     // await AsyncStorage.clear();
                     // navigation.dispatch(

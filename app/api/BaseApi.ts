@@ -43,25 +43,6 @@ export abstract class BaseApi {
                 }
             }
 
-            // const {userDetails} = useSelector((state: RootState) => state)
-
-            // const userAccessToken = userDetails.access
-
-            // const res = await AsyncStorage.getItem('persist:userDetails')
-            // const test = JSON.parse(res)
-            // const test2 = JSON.parse(test.userDetails)
-            // const userAccessToken = test2.access
-
-            // if (userAccessToken) {
-            //     config = {
-            //         ...config,
-            //         headers: {
-            //             ...config?.headers,
-            //             Authorization: `Bearer ${userAccessToken}`
-            //         }
-            //     }
-            // }
-
             return (await this.httpClient.get(path, config)).data
         } catch (error) {
             return error as AxiosError
@@ -89,33 +70,6 @@ export abstract class BaseApi {
                     }
                 }
             }
-            // const {userDetails} = useSelector((state: RootState) => state)
-
-            // const userAccessToken = userDetails.access
-
-            // if (userAccessToken) {
-            //     config = {
-            //         ...config,
-            //         headers: {
-            //             ...config?.headers,
-            //             Authorization: `Bearer ${userAccessToken}`
-            //         }
-            //     }
-            // }
-            // const res = await AsyncStorage.getItem('persist:userDetails')
-            // const test = JSON.parse(res)
-            // const test2 = JSON.parse(test.userDetails)
-            // const userAccessToken = test2.access
-
-            // if (userAccessToken) {
-            //     config = {
-            //         ...config,
-            //         headers: {
-            //             ...config?.headers,
-            //             Authorization: `Bearer ${userAccessToken}`
-            //         }
-            //     }
-            // }
 
             const result = (await this.httpClient.post(
                 path,
@@ -147,20 +101,6 @@ export abstract class BaseApi {
                 } as AxiosError
             }
 
-            // const res = await AsyncStorage.getItem('persist:userDetails')
-            // const test = JSON.parse(res)
-            // const test2 = JSON.parse(test.userDetails)
-            // const userAccessToken = test2.access
-
-            // if (userAccessToken) {
-            //     config = {
-            //         ...config,
-            //         headers: {
-            //             ...config?.headers,
-            //             Authorization: `Bearer ${userAccessToken}`
-            //         }
-            //     }
-            // }
             return (await this.httpClient.put(path, data, config)).data
         } catch (error) {
             return error as AxiosError

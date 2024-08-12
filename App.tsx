@@ -1,25 +1,14 @@
 import 'react-native-gesture-handler'
-import {StyleSheet, Text, View} from 'react-native'
 import React from 'react'
+import {NavigationContainer} from '@react-navigation/native'
+import {MainStack} from './app/navigation/MainStack'
 
 const App: React.FC = () => {
     return (
-        <View style={styles.mainContainer}>
-            <Text style={styles.mainText}>App</Text>
-        </View>
+        <NavigationContainer>
+            <MainStack />
+        </NavigationContainer>
     )
 }
 
 export default App
-
-const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    mainText: {
-        fontSize: 30,
-        color: 'black'
-    }
-})
