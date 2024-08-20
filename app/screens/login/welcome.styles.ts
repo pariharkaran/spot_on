@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native'
-import {Colors} from '../theme/colors'
+import {Colors} from '../../theme/colors'
 //margin left 20
 export const styles = StyleSheet.create({
     mainContainer: {

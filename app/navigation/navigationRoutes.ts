@@ -1,4 +1,4 @@
-export const LOGIN = 'Login'
+export const WELCOME = 'Welcome'
 
 {
     /*  navigation types 
