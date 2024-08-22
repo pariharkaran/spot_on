@@ -4,10 +4,15 @@ import {styles} from './welcome.styles'
 import {PrimaryLogo} from '../../assets/locals/svg'
 import {locals} from '../../assets/locals/en-US'
 import LinearGradient from 'react-native-linear-gradient'
-
+import {useNavigation} from '@react-navigation/native'
+import {LOGIN} from '../../navigation/navigationRoutes'
 export const Welcome: React.FC = () => {
     const {height} = useWindowDimensions()
-
+    const navigation = useNavigation()
+    const handleLoginPress = () => {
+        console.log('Navigate to login Screen')
+        navigation.navigate(LOGIN)
+    }
     return (
         <View style={styles.mainContainer}>
             <View style={[styles.logoContainer, {height: height / 1.8}]}>
@@ -21,7 +26,12 @@ export const Welcome: React.FC = () => {
                 </Text>
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity activeOpacity={0.65}>
+                <TouchableOpacity
+                    activeOpacity={0.65}
+                    onPress={() => {
+                        handleLoginPress()
+                    }}
+                >
                     <LinearGradient
                         start={{x: 0, y: 0}}
                         end={{x: 1, y: 0}}

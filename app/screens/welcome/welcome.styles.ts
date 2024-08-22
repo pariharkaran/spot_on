@@ -17,7 +17,8 @@ export const styles = StyleSheet.create({
         fontFamily: 'Inter-Regular',
         fontWeight: '700',
         fontSize: 24,
-        lineHeight: 30
+        lineHeight: 30,
+        color: Colors.black
     },
     secondaryText: {
         fontFamily: 'Inter-Regular',

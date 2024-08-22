@@ -1,4 +1,5 @@
 export const WELCOME = 'Welcome'
+export const LOGIN = 'Login'
 
 {
     /*  navigation types 
