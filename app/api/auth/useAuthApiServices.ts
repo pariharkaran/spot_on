@@ -1,31 +1,30 @@
 import {useCallback} from 'react'
-import {LoginApiReqBody, LoginApiResponse} from '../../GlobalTypes'
+import {SendOtpRequestBody, SendOtpResponseBody} from '../../GlobalTypes'
 import {useApiServices} from '../ApiServicesContext'
-import {ApiSuccessRes} from '../BaseApi'
 
 export const useAuthApiServices = () => {
     const {AuthApi} = useApiServices()
 
-    const login = useCallback(
-        async (data: LoginApiReqBody) => {
-            const apiRequestBody: LoginApiReqBody = {
-                email: data.email,
-                password: data.password
+    const sendOtp = useCallback(
+        async (data: SendOtpRequestBody) => {
+            const apiRequestBody: SendOtpRequestBody = {
+                mobile_no: data.mobile_no,
+                country_code: data.country_code,
+                user_type_id: data.user_type_id
             }
 
-            const result = (await AuthApi.login(
+            const result = (await AuthApi.sendOtp(
                 apiRequestBody
-            )) as ApiSuccessRes<LoginApiResponse>
+            )) as SendOtpResponseBody
 
             return {
-                data: result.data,
-                success: result.success
+                data: result
             }
         },
         [AuthApi]
     )
 
     return {
-        login
+        sendOtp
     }
 }
