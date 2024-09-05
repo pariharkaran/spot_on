@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native'
 import React from 'react'
 
-export const DashBoad: React.FC = () => {
+export const DashBoard: React.FC = () => {
     return (
         <View style={styles.mainContainer}>
             <Text>DashBoard</Text>
