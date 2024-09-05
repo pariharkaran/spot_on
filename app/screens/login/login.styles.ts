@@ -45,7 +45,6 @@ export const styles = StyleSheet.create({
         marginTop: responsiveHeight(4),
         marginHorizontal: responsiveWidth(7),
         borderRadius: 10,
-        borderColor: Colors.pattensBlue,
         borderWidth: responsiveWidth(0.4),
         paddingVertical: responsiveHeight(2),
         paddingHorizontal: responsiveWidth(4),

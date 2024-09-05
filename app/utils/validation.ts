@@ -5,6 +5,12 @@ export const isEmailValid = (email: string) => {
     return emailRegex.test(email)
 }
 
+export const isPhoneNumberValid = (phoneNumber: string) => {
+    const phoneNumberRegex = /^\+?[1-9]\d{9,14}$/
+
+    return phoneNumberRegex.test(phoneNumber)
+}
+
 export const isNonEmpty = (value?: string) => {
     return value !== '' && value?.trim() !== ''
 }

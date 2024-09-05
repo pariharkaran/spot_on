@@ -11,44 +11,32 @@ import {
     useWindowDimensions
 } from 'react-native'
 import {styles} from './login.styles'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {locals} from '../../assets/locals/en-US'
 import {CountryPicker} from 'react-native-country-codes-picker'
 import {Colors} from '../../theme/colors'
 import {PrimaryLogoWhite} from '../../assets/locals/svg'
 import {OtpView} from '../../components/OtpView'
+import {isPhoneNumberValid} from '../../utils/validation'
 
 export const Login: React.FC = () => {
     const [show, setShow] = useState(false)
     const [countryCode, setCountryCode] = useState('+91')
     const [mobileNumber, setMobileNumber] = useState('')
-    const [isMobileNumberInvalid, setIsMobileNumberInvalid] = useState(false)
-    const [touched, setTouched] = useState(false)
     const [isOtpViewVisible, setIsOtpViewVisible] = useState(false)
+    const [isNumberInputInFocus, setIsNumberInputInFocus] = useState(false)
+    const [isPhoneNumberCorrect, setIsPhoneNumberCorrect] = useState(false)
 
-    const handleMobileNumberChange = (text: string) => {
-        setMobileNumber(text)
-        if (touched) {
-            validateMobileNumber(text)
-        }
-    }
-
-    const validateMobileNumber = (text: string) => {
-        const trimmedText = text.trim()
-        if (trimmedText.length < 10) {
-            setIsMobileNumberInvalid(true)
-        } else {
-            setIsMobileNumberInvalid(false)
-        }
-    }
-
-    const handleInputBlur = () => {
-        setTouched(true)
-        validateMobileNumber(mobileNumber)
-    }
+    const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0
 
     const {height} = useWindowDimensions()
-    const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0
+
+    useEffect(() => {
+        const phoneNumberValidityCheck =
+            mobileNumber.length > 0 && isPhoneNumberValid(mobileNumber)
+
+        setIsPhoneNumberCorrect(phoneNumberValidityCheck)
+    }, [mobileNumber])
 
     return (
         <TouchableWithoutFeedback
@@ -60,7 +48,7 @@ export const Login: React.FC = () => {
                 <View style={styles.topContainer}>
                     <Image
                         source={require('../../assets/Images/loginBg.png')}
-                        style={styles.topImage}
+                        style={[styles.topImage, {height: height}]}
                     />
                     <View style={styles.overlayContainer}>
                         <PrimaryLogoWhite />
@@ -69,7 +57,7 @@ export const Login: React.FC = () => {
                 <KeyboardAvoidingView
                     style={[styles.bottomContainer]}
                     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                    // keyboardVerticalOffset={keyboardVerticalOffset}
+                    keyboardVerticalOffset={keyboardVerticalOffset}
                 >
                     {isOtpViewVisible ? (
                         <OtpView />
@@ -85,8 +73,8 @@ export const Login: React.FC = () => {
                             <View
                                 style={[
                                     styles.mobileNumberContainer,
-                                    isMobileNumberInvalid && {
-                                        borderColor: Colors.punchRed
+                                    {
+                                        borderColor: Colors.borderGrey
                                     }
                                 ]}
                             >
@@ -100,17 +88,20 @@ export const Login: React.FC = () => {
                                     placeholderTextColor={Colors.scorpionGray}
                                     keyboardType="number-pad"
                                     value={mobileNumber}
-                                    onChangeText={text => {
-                                        handleMobileNumberChange(text)
+                                    onChangeText={value => {
+                                        setMobileNumber(value)
                                     }}
                                     onBlur={() => {
-                                        handleInputBlur()
+                                        setIsNumberInputInFocus(false)
+                                    }}
+                                    onFocus={() => {
+                                        setIsNumberInputInFocus(true)
                                     }}
                                     style={styles.mobileNumberTextInput}
                                     maxLength={10}
                                 />
                             </View>
-                            {isMobileNumberInvalid && (
+                            {isNumberInputInFocus && !isPhoneNumberCorrect && (
                                 <Text style={styles.errorTextMessage}>
                                     {locals.mobileNoValidation}
                                 </Text>
@@ -143,12 +134,12 @@ export const Login: React.FC = () => {
                                 style={[
                                     styles.continueButtonContainer,
                                     {
-                                        backgroundColor: isMobileNumberInvalid
-                                            ? Colors.silver
-                                            : Colors.curiousBlue
+                                        backgroundColor: isPhoneNumberCorrect
+                                            ? Colors.curiousBlue
+                                            : Colors.silver
                                     } // Disable color change
                                 ]}
-                                disabled={isMobileNumberInvalid} // Disable the button when there's an error
+                                disabled={!isPhoneNumberCorrect} // Disable the button when there's an error
                             >
                                 <Text style={styles.continueButtonText}>
                                     {locals.continueButtonText}
