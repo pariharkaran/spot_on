@@ -1,6 +1,7 @@
 export const WELCOME = 'Welcome'
 export const LOGIN = 'Login'
 export const DASH_BOARD = 'DashBoard'
+export const PROFILE = 'Profile'
 
 {
     /*  navigation types 

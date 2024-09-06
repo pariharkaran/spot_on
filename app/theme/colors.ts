@@ -9,5 +9,7 @@ export const Colors = {
     scorpionGray: '#5B5B5B',
     curiousBlue: '#1B82E6',
     silver: '#CCCCCC',
-    borderGrey: '#88A8C9'
+    borderGrey: '#88A8C9',
+    lightBlue: '#EEF7FF',
+    textGrey: '#7290AF'
 }

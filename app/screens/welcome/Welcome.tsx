@@ -1,7 +1,7 @@
 import {Text, TouchableOpacity, useWindowDimensions, View} from 'react-native'
 import React from 'react'
 import {styles} from './welcome.styles'
-import {PrimaryLogo} from '../../assets/locals/svg'
+import {PrimaryLogo} from '../../assets/svg'
 import {locals} from '../../assets/locals/en-US'
 import LinearGradient from 'react-native-linear-gradient'
 import {useNavigation} from '@react-navigation/native'

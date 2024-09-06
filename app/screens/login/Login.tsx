@@ -12,11 +12,13 @@ import React, {useEffect} from 'react'
 import {locals} from '../../assets/locals/en-US'
 import {CountryPicker} from 'react-native-country-codes-picker'
 import {Colors} from '../../theme/colors'
-import {PrimaryLogoWhite} from '../../assets/locals/svg'
+import {PrimaryLogoWhite} from '../../assets/svg'
 import {OtpView} from '../../components/OtpView'
 import {isPhoneNumberValid} from '../../utils/validation'
 import {useLogin} from './login.hooks'
 import {DownArrow} from '../../assets/locals/svg/DownArrow'
+import {useNavigation} from '@react-navigation/native'
+import {PROFILE} from '../../navigation/navigationRoutes'
 
 export const Login: React.FC = () => {
     const {
@@ -37,6 +39,8 @@ export const Login: React.FC = () => {
         submitVerifyOtp,
         submitResendOtp
     } = useLogin()
+
+    const navigation = useNavigation()
 
     useEffect(() => {
         const phoneNumberValidityCheck =
@@ -154,6 +158,9 @@ export const Login: React.FC = () => {
                             />
 
                             <TouchableOpacity
+                                onPress={() => {
+                                    navigation.navigate(PROFILE)
+                                }}
                                 style={[
                                     styles.continueButtonContainer,
                                     {
