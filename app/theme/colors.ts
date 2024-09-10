@@ -11,5 +11,10 @@ export const Colors = {
     silver: '#CCCCCC',
     borderGrey: '#88A8C9',
     lightBlue: '#EEF7FF',
-    textGrey: '#7290AF'
+    textGrey: '#7290AF',
+    textBlack: '#212121',
+    grey700: '#46617B',
+    borderGrey900: '#BBC9DD',
+    grey400: '#88A8C9',
+    primaryLightBlue: '#C8DCF1'
 }

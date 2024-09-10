@@ -86,6 +86,7 @@ export const ProfileSections: React.FC = () => {
                     contentContainerStyle={styles.tabsContainer}
                 />
             </View>
+            <View style={styles.divider} />
             <View style={styles.selectedSections}>
                 <SelectedSection />
             </View>
@@ -100,8 +101,6 @@ const styles = StyleSheet.create({
     tabsContainer: {
         flexDirection: 'row',
         gap: 5,
-        borderBottomWidth: 1,
-        borderBottomColor: Colors.lightBlue,
         paddingHorizontal: 10
     },
     tabButton: {
@@ -113,5 +112,10 @@ const styles = StyleSheet.create({
     tabButtonText: {},
     selectedSections: {
         flex: 1
+    },
+    divider: {
+        height: 1,
+        backgroundColor: Colors.lightBlue,
+        marginVertical: 15
     }
 })

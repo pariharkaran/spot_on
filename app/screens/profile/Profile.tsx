@@ -8,8 +8,9 @@ export const Profile: React.FC = () => {
     return (
         <View style={styles.parentContainer}>
             <SafeAreaView style={styles.headerContainer}>
-                <View style={{padding: 10}}>
+                <View style={styles.headerWrapper}>
                     <BackArrowRound />
+                    <Text style={styles.headerText}>Fill Profile</Text>
                 </View>
             </SafeAreaView>
             <View style={styles.mainContainer}>
