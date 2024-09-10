@@ -1,35 +1,42 @@
 import {
     View,
-    Image,
     Text,
     TextInput,
     TouchableOpacity,
-    KeyboardAvoidingView,
     TouchableWithoutFeedback,
     Keyboard,
-    Platform,
-    useWindowDimensions
+    ImageBackground
 } from 'react-native'
 import {styles} from './login.styles'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {locals} from '../../assets/locals/en-US'
 import {CountryPicker} from 'react-native-country-codes-picker'
 import {Colors} from '../../theme/colors'
 import {PrimaryLogoWhite} from '../../assets/locals/svg'
 import {OtpView} from '../../components/OtpView'
 import {isPhoneNumberValid} from '../../utils/validation'
+import {useLogin} from './login.hooks'
+import {DownArrow} from '../../assets/locals/svg/DownArrow'
 
 export const Login: React.FC = () => {
-    const [show, setShow] = useState(false)
-    const [countryCode, setCountryCode] = useState('+91')
-    const [mobileNumber, setMobileNumber] = useState('')
-    const [isOtpViewVisible, setIsOtpViewVisible] = useState(false)
-    const [isNumberInputInFocus, setIsNumberInputInFocus] = useState(false)
-    const [isPhoneNumberCorrect, setIsPhoneNumberCorrect] = useState(false)
-
-    const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0
-
-    const {height} = useWindowDimensions()
+    const {
+        show,
+        setShow,
+        countryCode,
+        setCountryCode,
+        mobileNumber,
+        setMobileNumber,
+        isOtpViewVisible,
+        isNumberInputInFocus,
+        setIsNumberInputInFocus,
+        isPhoneNumberCorrect,
+        setIsPhoneNumberCorrect,
+        otp,
+        setOtp,
+        submitSendOtp,
+        submitVerifyOtp,
+        submitResendOtp
+    } = useLogin()
 
     useEffect(() => {
         const phoneNumberValidityCheck =
@@ -45,22 +52,28 @@ export const Login: React.FC = () => {
             }}
         >
             <View style={styles.mainContainer}>
-                <View style={styles.topContainer}>
-                    <Image
-                        source={require('../../assets/Images/loginBg.png')}
-                        style={[styles.topImage, {height: height}]}
-                    />
+                <ImageBackground
+                    source={require('../../assets/Images/loginBg.png')}
+                    style={[styles.topImage]}
+                >
                     <View style={styles.overlayContainer}>
                         <PrimaryLogoWhite />
                     </View>
-                </View>
-                <KeyboardAvoidingView
-                    style={[styles.bottomContainer]}
-                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                    keyboardVerticalOffset={keyboardVerticalOffset}
-                >
+                </ImageBackground>
+
+                <View style={[styles.bottomContainer]}>
                     {isOtpViewVisible ? (
-                        <OtpView />
+                        <OtpView
+                            otp={otp}
+                            setOtp={setOtp}
+                            mobileNumber={mobileNumber}
+                            submitVerifyOtp={() => {
+                                submitVerifyOtp()
+                            }}
+                            submitResendOtp={() => {
+                                submitResendOtp()
+                            }}
+                        />
                     ) : (
                         <View>
                             <Text style={styles.logInTitleText}>
@@ -78,14 +91,21 @@ export const Login: React.FC = () => {
                                     }
                                 ]}
                             >
-                                <TouchableOpacity onPress={() => setShow(true)}>
-                                    <Text style={styles.countryCodeText}>
-                                        {countryCode}
-                                    </Text>
+                                <TouchableOpacity
+                                    onPress={() => setShow(true)}
+                                    style={{}}
+                                >
+                                    <View style={styles.countryCodeContainer}>
+                                        <Text style={styles.countryCodeText}>
+                                            {countryCode}
+                                        </Text>
+                                        <DownArrow />
+                                    </View>
                                 </TouchableOpacity>
+
                                 <TextInput
                                     placeholder={locals.mobileNumber}
-                                    placeholderTextColor={Colors.scorpionGray}
+                                    placeholderTextColor={Colors.baliHai}
                                     keyboardType="number-pad"
                                     value={mobileNumber}
                                     onChangeText={value => {
@@ -98,18 +118,21 @@ export const Login: React.FC = () => {
                                         setIsNumberInputInFocus(true)
                                     }}
                                     style={styles.mobileNumberTextInput}
-                                    maxLength={10}
+                                    maxLength={15}
                                 />
                             </View>
-                            {isNumberInputInFocus && !isPhoneNumberCorrect && (
-                                <Text style={styles.errorTextMessage}>
-                                    {locals.mobileNoValidation}
-                                </Text>
-                            )}
+
+                            <Text style={styles.errorTextMessage}>
+                                {isNumberInputInFocus && !isPhoneNumberCorrect
+                                    ? locals.mobileNoValidation
+                                    : ''}
+                            </Text>
+
                             <CountryPicker
                                 show={show}
                                 initialState={'+91'}
                                 lang="en"
+                                enableModalAvoiding={true}
                                 pickerButtonOnPress={item => {
                                     setCountryCode(item.dial_code)
                                     setShow(false)
@@ -140,6 +163,9 @@ export const Login: React.FC = () => {
                                     } // Disable color change
                                 ]}
                                 disabled={!isPhoneNumberCorrect} // Disable the button when there's an error
+                                onPress={() => {
+                                    submitSendOtp()
+                                }}
                             >
                                 <Text style={styles.continueButtonText}>
                                     {locals.continueButtonText}
@@ -147,7 +173,7 @@ export const Login: React.FC = () => {
                             </TouchableOpacity>
                         </View>
                     )}
-                </KeyboardAvoidingView>
+                </View>
             </View>
         </TouchableWithoutFeedback>
     )

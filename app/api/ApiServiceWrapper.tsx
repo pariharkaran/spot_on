@@ -65,8 +65,8 @@ function ApiServicesWrapper(props: PropsWithChildren) {
                     //     })
                     // );
                 }
-                console.error('Instance Create Error', error)
-                Alert.alert('Error', 'Something went wrong please try again')
+
+                Alert.alert('Error', error?.response?.data?.message ?? '')
                 return Promise.reject(error)
             }
         )

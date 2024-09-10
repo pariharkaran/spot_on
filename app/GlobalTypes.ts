@@ -5,16 +5,6 @@ export enum UserType {
     Manager = 4,
     TeamLead = 5
 }
-export type LoginApiReqBody = {
-    email: string
-    password: string
-}
-export interface LoginApiResponse {
-    refresh: string
-    access: string
-    access_token_expires_in: number
-    refresh_token_expires_in: number
-}
 
 export type SendOtpRequestBody = {
     country_code: string
@@ -23,6 +13,36 @@ export type SendOtpRequestBody = {
 }
 
 export type SendOtpResponseBody = {
+    name: string | null
+    email: string
+    country_code: string
+    mobile_no: string
+}
+
+export type VerifyOtpRequestBody = {
+    country_code: string
+    mobile_no: string
+    verification_code: string
+    user_type_id: number
+    device_type: number
+    device_id: string
+    device_fcm_token: string
+}
+
+export type VerifyOtpResponse = {
+    token: string
+    email: string
+    name: string
+}
+
+export type ResendOtpRequestBody = {
+    country_code: string
+    mobile_no: string
+    user_type_id: number
+    resend: number
+}
+
+export type ResendOtpResponse = {
     name: string | null
     email: string
     country_code: string

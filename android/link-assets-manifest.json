@@ -152,6 +152,10 @@
     {
       "path": "app/assets/fonts/InterVariable.ttf",
       "sha1": "20680c90613c87c9ff178c87a0f4ab111bef25c8"
+    },
+    {
+      "path": "app/assets/fonts/SF-Pro.ttf",
+      "sha1": "4535cc06bec417ffb7de0f594433206566b1245a"
     }
   ]
 }

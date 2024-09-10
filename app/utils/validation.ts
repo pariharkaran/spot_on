@@ -6,7 +6,7 @@ export const isEmailValid = (email: string) => {
 }
 
 export const isPhoneNumberValid = (phoneNumber: string) => {
-    const phoneNumberRegex = /^\+?[1-9]\d{9,14}$/
+    const phoneNumberRegex = /^\+?[1-9]\d{5,14}$/
 
     return phoneNumberRegex.test(phoneNumber)
 }

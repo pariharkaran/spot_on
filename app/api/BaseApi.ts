@@ -38,7 +38,8 @@ export abstract class BaseApi {
             if (!config) {
                 config = {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        language: 'en'
                     }
                 }
             }
@@ -66,7 +67,8 @@ export abstract class BaseApi {
             if (!config) {
                 config = {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        language: 'en'
                     }
                 }
             }
@@ -77,6 +79,7 @@ export abstract class BaseApi {
                 config
             )) as ApiSuccessRes<T>
             console.log('apis success: ', JSON.stringify(result))
+
             return {
                 success: result.success, // pass result.success
                 data: result.data,
