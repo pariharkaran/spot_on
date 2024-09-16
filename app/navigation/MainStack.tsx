@@ -12,7 +12,7 @@ export const MainStack: React.FC = () => {
 
     return (
         <Stack.Navigator
-            initialRouteName={isAccessTokenAvailable ? LOGIN : LOGIN} //add app's mainscreen in true condition
+            initialRouteName={isAccessTokenAvailable ? PROFILE : PROFILE} //add app's mainscreen in true condition
             screenOptions={{
                 headerShown: false
             }}

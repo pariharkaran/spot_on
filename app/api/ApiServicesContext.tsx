@@ -1,8 +1,10 @@
 import {createContext, useContext} from 'react'
 import AuthApis from './auth/AuthApis'
+import ProfileApis from './profile/ProfileApis'
 
 export type ApiServicesContextValues = {
     AuthApi: AuthApis
+    ProfileApi: ProfileApis
 }
 
 export const ApiServicesContext =

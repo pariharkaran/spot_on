@@ -59,3 +59,11 @@ export enum BloodGroup {
     O_POSITIVE = 'O+',
     O_NEGATIVE = 'O-'
 }
+
+export type EmployeePersonalProfileRequestBody = FormData
+export type EmployeWorkDetailsRequestBody = FormData
+export type EmployeAddressDetailsRequestBody = FormData
+
+export type EmployeePersonalProfileResponse = {
+    success: boolean
+}

@@ -2,5 +2,8 @@
 export const API_ROUTES = {
     verifyAndLogin: 'auth/verify-and-login',
     sendOtp: 'auth/send-otp',
-    resendOtp: 'auth/resend-otp'
+    resendOtp: 'auth/resend-otp',
+    employePersonalProfile: 'employee/update-employee-personal-details',
+    employeWorkDetails: 'employee/update-employee-work-details',
+    employeAddressDetails: 'employee/update-employee-address-details'
 }

@@ -4,6 +4,7 @@ import {BackArrowRound} from './BackArrowRound'
 import {DashedCircleAvatar} from './DashedCircleAvatar'
 import {Upload} from './Upload'
 import {UploadImageButton} from './UploadImageButton'
+import {DownArrow} from './DownArrow'
 
 export {
     PrimaryLogo,
@@ -11,5 +12,6 @@ export {
     PrimaryLogoWhite,
     DashedCircleAvatar,
     Upload,
-    UploadImageButton
+    UploadImageButton,
+    DownArrow
 }
