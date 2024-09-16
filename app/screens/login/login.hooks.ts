@@ -1,6 +1,8 @@
 import {useState} from 'react'
 import {useAuthApiServices} from '../../api/auth/useAuthApiServices'
 import {Alert} from 'react-native'
+import {useDispatch} from 'react-redux'
+import {setUserDetails} from '../../redux/actions/VerifyOtpActions'
 
 export const useLogin = () => {
     const [show, setShow] = useState(false)
@@ -13,6 +15,7 @@ export const useLogin = () => {
     const [isLoading, setLoading] = useState(false)
 
     const {sendOtp, verifyOtpAndLogin, resendOtp} = useAuthApiServices()
+    const dispatch = useDispatch()
 
     const submitSendOtp = async () => {
         try {
@@ -41,9 +44,10 @@ export const useLogin = () => {
                 device_id: '',
                 device_fcm_token: ''
             })
-            console.log('verifyOtpResponse: ', response)
             if (response.success) {
                 Alert.alert('Login success')
+                const userDetails = response.data
+                dispatch(setUserDetails(userDetails))
                 setIsOtpViewVisible(false)
                 setMobileNumber('')
                 setIsNumberInputInFocus(false)

@@ -33,6 +33,7 @@ export type VerifyOtpResponse = {
     token: string
     email: string
     name: string
+    user_type_id: UserType
 }
 
 export type ResendOtpRequestBody = {
