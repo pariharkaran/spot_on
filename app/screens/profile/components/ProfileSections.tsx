@@ -78,7 +78,7 @@ export const ProfileSections: React.FC = () => {
     }
 
     return (
-        <View style={styles.mainContainer}>
+        <View style={[styles.mainContainer, {marginTop: 10}]}>
             <View>
                 <FlatList<ISections>
                     data={sections}
