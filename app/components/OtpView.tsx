@@ -1,5 +1,5 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Colors} from '../theme/colors'
 import {
     responsiveFont,
@@ -26,6 +26,22 @@ export const OtpView: React.FC<IOtpViewProps> = ({
     submitVerifyOtp,
     submitResendOtp
 }) => {
+    const [timer, setTimer] = useState(60)
+    const [isResendDisabled, setIsResendDisabled] = useState(true)
+
+    useEffect(() => {
+        let interval = null
+        if (timer > 0) {
+            interval = setInterval(() => {
+                setTimer(prev => prev - 1)
+            }, 1000)
+        } else {
+            setIsResendDisabled(false)
+        }
+        return () => {
+            if (interval) clearInterval(interval)
+        }
+    }, [timer])
     return (
         <View style={styles.mainContainer}>
             <Text style={styles.titleText}>{locals.verifyPhoneNumber}</Text>
@@ -62,8 +78,13 @@ export const OtpView: React.FC<IOtpViewProps> = ({
                     submitResendOtp()
                 }}
                 style={styles.resentOtpContainer}
+                disabled={isResendDisabled}
             >
-                <Text style={styles.resentOtpText}>{locals.resendOtp}</Text>
+                <Text style={styles.resentOtpText}>
+                    {isResendDisabled
+                        ? `Resend Otp in ${timer}s`
+                        : locals.resendOtp}
+                </Text>
             </TouchableOpacity>
 
             <View>
