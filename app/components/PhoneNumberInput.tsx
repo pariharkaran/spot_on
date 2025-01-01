@@ -1,5 +1,12 @@
 import React from 'react'
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
+import {
+    Platform,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native'
 import {Colors} from '../theme/colors'
 import {locals} from '../assets/locals/en-US'
 import {CountryPicker} from 'react-native-country-codes-picker'
@@ -8,6 +15,7 @@ import {
     responsiveHeight,
     responsiveWidth
 } from '../utils/scaling'
+const isIos = Platform.OS === 'ios'
 
 interface IPhoneNumberInputProps {
     setShow: (value: React.SetStateAction<boolean>) => void
@@ -47,7 +55,7 @@ export const PhoneNumberInput: React.FC<IPhoneNumberInputProps> = ({
                 </TouchableOpacity>
                 <TextInput
                     placeholder={locals.mobileNumber}
-                    placeholderTextColor={Colors.scorpionGray}
+                    placeholderTextColor={Colors.borderGrey}
                     keyboardType="number-pad"
                     value={mobileNumber}
                     onChangeText={value => {
@@ -60,7 +68,8 @@ export const PhoneNumberInput: React.FC<IPhoneNumberInputProps> = ({
                         setIsNumberInputInFocus(true)
                     }}
                     style={styles.mobileNumberTextInput}
-                    maxLength={10}
+                    maxLength={15}
+                    cursorColor={Colors.primaryBlue}
                 />
             </View>
             {isNumberInputInFocus && !isPhoneNumberCorrect && (
@@ -72,11 +81,16 @@ export const PhoneNumberInput: React.FC<IPhoneNumberInputProps> = ({
                 show={show}
                 initialState={'+91'}
                 lang="en"
+                enableModalAvoiding={true}
                 pickerButtonOnPress={item => {
                     setCountryCode(item.dial_code)
                     setShow(false)
                 }}
+                onBackdropPress={() => {
+                    setShow(false)
+                }}
                 style={{
+                    modal: styles.countryCodeModal,
                     dialCode: {
                         color: Colors.black
                     },
@@ -143,5 +157,8 @@ const styles = StyleSheet.create({
     countryCodeText: {
         color: Colors.mineShaft,
         fontSize: responsiveFont(17)
+    },
+    countryCodeModal: {
+        height: isIos ? responsiveHeight(40) : responsiveHeight(45)
     }
 })
