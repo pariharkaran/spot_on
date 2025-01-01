@@ -10,5 +10,6 @@ export const locals = {
     enterOtpSentToMobile:
         'Please enter the OTP to verify your mobile number. An OTP has been sent to ',
     resendOtp: 'Resend OTP',
-    verify: 'Verfiy'
+    verify: 'Verfiy',
+    enterMobileNumberText: 'Enter your Mobile number'
 }
