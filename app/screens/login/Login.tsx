@@ -67,6 +67,7 @@ export const Login: React.FC = () => {
                             otp={otp}
                             setOtp={setOtp}
                             mobileNumber={mobileNumber}
+                            countryCode={countryCode}
                             submitVerifyOtp={() => {
                                 submitVerifyOtp()
                             }}

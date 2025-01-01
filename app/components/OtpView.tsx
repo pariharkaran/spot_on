@@ -12,6 +12,7 @@ import {locals} from '../assets/locals/en-US'
 interface IOtpViewProps {
     otp: string
     mobileNumber: string
+    countryCode: string
     setOtp: React.Dispatch<React.SetStateAction<string>>
     submitVerifyOtp: () => void
     submitResendOtp: () => void
@@ -20,6 +21,7 @@ interface IOtpViewProps {
 export const OtpView: React.FC<IOtpViewProps> = ({
     mobileNumber = '',
     otp = '',
+    countryCode = '',
     setOtp,
     submitVerifyOtp,
     submitResendOtp
@@ -29,7 +31,11 @@ export const OtpView: React.FC<IOtpViewProps> = ({
             <Text style={styles.titleText}>{locals.verifyPhoneNumber}</Text>
             <Text style={styles.subTitleText}>
                 {locals.enterOtpSentToMobile}
-                <Text style={styles.mobileNumber}>+{mobileNumber}</Text>
+                <Text style={styles.mobileNumber}>
+                    {countryCode}
+                    {` `}
+                    {mobileNumber}
+                </Text>
             </Text>
 
             <View>
