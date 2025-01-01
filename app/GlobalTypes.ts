@@ -9,7 +9,8 @@ export enum UserType {
 export type SendOtpRequestBody = {
     country_code: string
     mobile_no: string
-    user_type_id: UserType
+    // user_type_id: UserType
+    device_type: number
 }
 
 export type SendOtpResponseBody = {

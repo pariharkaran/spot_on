@@ -1,9 +1,10 @@
 import {useState} from 'react'
 import {useAuthApiServices} from '../../api/auth/useAuthApiServices'
-import {Alert} from 'react-native'
+import {Alert, Platform} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {setUserDetails} from '../../redux/actions/VerifyOtpActions'
 
+const isIos = Platform.OS === 'ios'
 export const useLogin = () => {
     const [show, setShow] = useState(false)
     const [countryCode, setCountryCode] = useState('+91')
@@ -24,7 +25,8 @@ export const useLogin = () => {
             const response = await sendOtp({
                 mobile_no: mobileNumber,
                 country_code: countryCode,
-                user_type_id: 3
+                // user_type_id: 3,
+                device_type: isIos ? 3 : 2
             })
             console.log('sentOtpResponse: ', response)
             if (response.success) setIsOtpViewVisible(true)

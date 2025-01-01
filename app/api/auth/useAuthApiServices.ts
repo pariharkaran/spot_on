@@ -18,7 +18,8 @@ export const useAuthApiServices = () => {
             const apiRequestBody: SendOtpRequestBody = {
                 mobile_no: data.mobile_no,
                 country_code: data.country_code,
-                user_type_id: data.user_type_id
+                // user_type_id: data.user_type_id,
+                device_type: data.device_type
             }
 
             const result = (await AuthApi.sendOtp(
