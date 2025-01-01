@@ -5,7 +5,8 @@ import {
     useWindowDimensions,
     TextInput,
     View,
-    ScrollView
+    ScrollView,
+    Platform
 } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import {Colors} from '../../../theme/colors'
@@ -16,7 +17,10 @@ import {BasicTextInput} from '../../../components/BasicTextInput'
 import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group'
 import {Dropdown} from 'react-native-element-dropdown'
 import {BloodGroup} from '../../../GlobalTypes'
+import {responsiveFont} from '../../../utils/scaling'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
+const isIos = Platform.OS === 'ios'
 export const Personal: React.FC = () => {
     const {width} = useWindowDimensions()
 
@@ -92,105 +96,121 @@ export const Personal: React.FC = () => {
     ]
 
     return (
-        <ScrollView style={styles.mainContainer}>
-            <View style={styles.titleContainer}>
-                <Text style={styles.titleText}>Personal Details</Text>
-            </View>
-            <View style={[styles.profileImageContainer, {width: width * 0.7}]}>
-                <Text style={styles.profileImageText}>Profile Image</Text>
-                <View style={styles.uploadProfileContainer}>
-                    <View>
-                        <DashedCircleAvatar />
-                    </View>
-                    <View>
-                        <Text style={styles.uploadText}>
-                            Please upload only JPG, JPEG, PNG files, File size
-                            more than 5 MB not allowed.
-                        </Text>
-                        <TouchableOpacity style={styles.uploadImageButton}>
-                            <UploadImageButton />
-                        </TouchableOpacity>
-                    </View>
+        <KeyboardAwareScrollView>
+            <ScrollView style={styles.mainContainer}>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.titleText}>Personal Details</Text>
                 </View>
-            </View>
-            <View style={styles.divider} />
-            <View style={styles.formContainer}>
-                <View style={styles.nameContainer}>
-                    <View>
-                        <Text style={styles.nameTagText}>First Name</Text>
-                        <TextInput
-                            style={[styles.nameInput, {width: width * 0.45}]}
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.nameTagText}>Last Name</Text>
-                        <TextInput
-                            style={[styles.nameInput, {width: width * 0.45}]}
-                        />
-                    </View>
-                </View>
-            </View>
-            <View style={{marginHorizontal: 15}}>
-                <Text style={styles.nameTagText}>Mobile Number</Text>
-                <PhoneNumberInput
-                    setShow={setShow}
-                    setCountryCode={setCountryCode}
-                    setIsNumberInputInFocus={setIsNumberInputInFocus}
-                    setMobileNumber={setMobileNumber}
-                    mobileNumber={mobileNumber}
-                    show={show}
-                    isPhoneNumberCorrect={isPhoneNumberCorrect}
-                    isNumberInputInFocus={isNumberInputInFocus}
-                    countryCode={countryCode}
-                />
-            </View>
-            <View style={{marginTop: 15, marginHorizontal: 15}}>
-                <Text style={styles.nameTagText}>Company Email ID</Text>
-                <BasicTextInput />
-            </View>
-            <View style={{marginTop: 15, marginHorizontal: 15}}>
-                <Text style={styles.nameTagText}>Personal Email ID</Text>
-                <BasicTextInput />
-            </View>
-            <View style={{marginTop: 15, marginHorizontal: 15}}>
-                <Text style={styles.nameTagText}>Gender</Text>
-                <RadioGroup
-                    radioButtons={radioButtons}
-                    onPress={id => {
-                        setSelectedId(id)
-                    }}
-                    selectedId={selectedId}
-                    layout="row"
-                />
-            </View>
-            <View style={{marginTop: 15, marginHorizontal: 15}}>
-                <Text style={styles.nameTagText}>Blood Group</Text>
                 <View
-                    style={{
-                        borderWidth: 1,
-                        borderColor: Colors.grey400,
-                        padding: 15,
-                        borderRadius: 8
-                    }}
+                    style={[styles.profileImageContainer, {width: width * 0.7}]}
                 >
-                    <Dropdown
-                        data={bloodGroupData}
-                        labelField="label"
-                        valueField="value"
-                        onChange={() => {}}
-                        placeholder="Select your blood group"
+                    <Text style={styles.profileImageText}>Profile Image</Text>
+                    <View style={styles.uploadProfileContainer}>
+                        <View>
+                            <DashedCircleAvatar />
+                        </View>
+                        <View>
+                            <Text style={styles.uploadText}>
+                                Please upload only JPG, JPEG, PNG files, File
+                                size more than 5 MB not allowed.
+                            </Text>
+                            <TouchableOpacity style={styles.uploadImageButton}>
+                                <UploadImageButton />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.divider} />
+                <View style={styles.formContainer}>
+                    <View style={styles.nameContainer}>
+                        <View>
+                            <Text style={styles.nameTagText}>First Name</Text>
+                            <TextInput
+                                cursorColor={Colors.primaryBlue}
+                                style={[
+                                    styles.nameInput,
+                                    {width: width * 0.45, color: Colors.black}
+                                ]}
+                            />
+                        </View>
+                        <View>
+                            <Text style={styles.nameTagText}>Last Name</Text>
+                            <TextInput
+                                cursorColor={Colors.primaryBlue}
+                                style={[
+                                    styles.nameInput,
+                                    {width: width * 0.45, color: Colors.black}
+                                ]}
+                            />
+                        </View>
+                    </View>
+                </View>
+                <View style={{marginHorizontal: 15}}>
+                    <Text style={styles.nameTagText}>Mobile Number</Text>
+                    <PhoneNumberInput
+                        setShow={setShow}
+                        setCountryCode={setCountryCode}
+                        setIsNumberInputInFocus={setIsNumberInputInFocus}
+                        setMobileNumber={setMobileNumber}
+                        mobileNumber={mobileNumber}
+                        show={show}
+                        isPhoneNumberCorrect={isPhoneNumberCorrect}
+                        isNumberInputInFocus={isNumberInputInFocus}
+                        countryCode={countryCode}
                     />
                 </View>
-            </View>
-            <View style={{marginTop: 15, marginHorizontal: 15}}>
-                <Text style={styles.nameTagText}>Pincode</Text>
-                <BasicTextInput />
-            </View>
+                <View style={{marginTop: 15, marginHorizontal: 15}}>
+                    <Text style={styles.nameTagText}>Company Email ID</Text>
+                    <BasicTextInput />
+                </View>
+                <View style={{marginTop: 15, marginHorizontal: 15}}>
+                    <Text style={styles.nameTagText}>Personal Email ID</Text>
+                    <BasicTextInput />
+                </View>
+                <View style={{marginTop: 15, marginHorizontal: 15}}>
+                    <Text style={styles.nameTagText}>Gender</Text>
+                    <RadioGroup
+                        labelStyle={{color: Colors.black}}
+                        radioButtons={radioButtons}
+                        onPress={id => {
+                            setSelectedId(id)
+                        }}
+                        selectedId={selectedId}
+                        layout="row"
+                    />
+                </View>
+                <View style={{marginTop: 15, marginHorizontal: 15}}>
+                    <Text style={styles.nameTagText}>Blood Group</Text>
+                    <View
+                        style={{
+                            borderWidth: 1,
+                            borderColor: Colors.grey400,
+                            padding: 15,
+                            borderRadius: 8
+                        }}
+                    >
+                        <Dropdown
+                            data={bloodGroupData}
+                            labelField="label"
+                            valueField="value"
+                            onChange={() => {}}
+                            placeholder="Select your blood group"
+                            placeholderStyle={{color: Colors.black}}
+                            itemTextStyle={{color: Colors.black}}
+                            selectedTextStyle={{color: Colors.black}}
+                        />
+                    </View>
+                </View>
+                <View style={{marginTop: 15, marginHorizontal: 15}}>
+                    <Text style={styles.nameTagText}>Pincode</Text>
+                    <BasicTextInput placeholderText={'Enter your Pincode'} />
+                </View>
 
-            <TouchableOpacity style={styles.saveButton}>
-                <Text style={styles.saveButtonText}>Save</Text>
-            </TouchableOpacity>
-        </ScrollView>
+                <TouchableOpacity style={styles.saveButton}>
+                    <Text style={styles.saveButtonText}>Save</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </KeyboardAwareScrollView>
     )
 }
 
@@ -204,14 +224,15 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 22,
         lineHeight: 30,
-        fontWeight: '600'
+        fontWeight: '600',
+        color: Colors.mineShaft
     },
     profileImageContainer: {
         marginHorizontal: 15
     },
     profileImageText: {
         color: Colors.grey700,
-        fontSize: 13,
+        fontSize: responsiveFont(13),
         fontWeight: '500',
         lineHeight: 20
     },
@@ -221,7 +242,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 15
     },
-    uploadText: {},
+    uploadText: {
+        color: Colors.borderGrey,
+        fontSize: responsiveFont(isIos ? 11 : 12)
+    },
     uploadImageButton: {
         marginTop: 10
     },
@@ -253,7 +277,7 @@ const styles = StyleSheet.create({
     saveButton: {
         padding: 15,
         marginTop: 20,
-
+        marginBottom: 20,
         marginHorizontal: 15,
         backgroundColor: Colors.primaryBlue,
         alignItems: 'center',
