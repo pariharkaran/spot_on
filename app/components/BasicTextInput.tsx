@@ -1,19 +1,23 @@
 import React from 'react'
-import {KeyboardTypeOptions, TextInput, View} from 'react-native'
+import {KeyboardTypeOptions, Platform, TextInput, View} from 'react-native'
 import {Colors} from '../theme/colors'
+import {responsiveFont} from '../utils/scaling'
 
+const isIos = Platform.OS === 'ios'
 interface IBasicTextInputProps {
     keyboardType?: KeyboardTypeOptions
     multiline?: boolean
     numberOfLines?: number
     height?: number
+    placeholderText?: string
 }
 
 export const BasicTextInput: React.FC<IBasicTextInputProps> = ({
     keyboardType,
     multiline,
     numberOfLines,
-    height
+    height,
+    placeholderText
 }) => {
     return (
         <View
@@ -24,13 +28,19 @@ export const BasicTextInput: React.FC<IBasicTextInputProps> = ({
             }}
         >
             <TextInput
+                textAlignVertical="top"
                 keyboardType={keyboardType}
                 style={{
                     padding: 15,
-                    height: height
+                    height: height,
+                    color: Colors.mineShaft,
+                    fontSize: responsiveFont(14)
                 }}
+                cursorColor={Colors.primaryBlue}
                 multiline={multiline}
                 numberOfLines={numberOfLines}
+                placeholder={placeholderText}
+                placeholderTextColor={Colors.borderGrey}
             />
         </View>
     )
