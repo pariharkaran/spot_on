@@ -9,6 +9,7 @@ import {
 import {Colors} from '../../../theme/colors'
 import {Dropdown} from 'react-native-element-dropdown'
 import {BasicTextInput} from '../../../components/BasicTextInput'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 export const Work: React.FC = () => {
     const data = [
@@ -17,45 +18,50 @@ export const Work: React.FC = () => {
     ]
 
     return (
-        <ScrollView style={styles.mainContainer}>
-            <View style={styles.titleContainer}>
-                <Text style={styles.titleText}>Work Details</Text>
-            </View>
-            <View style={{marginTop: 15, marginHorizontal: 15}}>
-                <Text style={styles.nameTagText}>Blood Group</Text>
-                <View
-                    style={{
-                        borderWidth: 1,
-                        borderColor: Colors.grey400,
-                        padding: 15,
-                        borderRadius: 8
-                    }}
-                >
-                    <Dropdown
-                        data={data}
-                        labelField="label"
-                        valueField="value"
-                        onChange={() => {}}
-                        placeholder="Select Your Designation"
-                    />
+        <KeyboardAwareScrollView>
+            <ScrollView style={styles.mainContainer}>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.titleText}>Work Details</Text>
                 </View>
-            </View>
-            <View style={{marginTop: 15, marginHorizontal: 15}}>
-                <Text style={styles.nameTagText}>Job Location</Text>
-                <BasicTextInput />
-            </View>
-            <View style={{marginTop: 15, marginHorizontal: 15}}>
-                <Text style={styles.nameTagText}>Work State</Text>
-                <BasicTextInput />
-            </View>
-            <View style={{marginTop: 15, marginHorizontal: 15}}>
-                <Text style={styles.nameTagText}>Work Country</Text>
-                <BasicTextInput />
-            </View>
-            <TouchableOpacity style={styles.saveButton}>
-                <Text style={styles.saveButtonText}>Save</Text>
-            </TouchableOpacity>
-        </ScrollView>
+                <View style={{marginTop: 15, marginHorizontal: 15}}>
+                    <Text style={styles.nameTagText}>Designation</Text>
+                    <View
+                        style={{
+                            borderWidth: 1,
+                            borderColor: Colors.grey400,
+                            padding: 15,
+                            borderRadius: 8
+                        }}
+                    >
+                        <Dropdown
+                            data={data}
+                            labelField="label"
+                            valueField="value"
+                            onChange={() => {}}
+                            placeholder="Select Your Designation"
+                            placeholderStyle={{color: Colors.black}}
+                            itemTextStyle={{color: Colors.black}}
+                            selectedTextStyle={{color: Colors.black}}
+                        />
+                    </View>
+                </View>
+                <View style={{marginTop: 15, marginHorizontal: 15}}>
+                    <Text style={styles.nameTagText}>Job Location</Text>
+                    <BasicTextInput />
+                </View>
+                <View style={{marginTop: 15, marginHorizontal: 15}}>
+                    <Text style={styles.nameTagText}>Work State</Text>
+                    <BasicTextInput />
+                </View>
+                <View style={{marginTop: 15, marginHorizontal: 15}}>
+                    <Text style={styles.nameTagText}>Work Country</Text>
+                    <BasicTextInput />
+                </View>
+                <TouchableOpacity style={styles.saveButton}>
+                    <Text style={styles.saveButtonText}>Save</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </KeyboardAwareScrollView>
     )
 }
 
@@ -69,7 +75,8 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 22,
         lineHeight: 30,
-        fontWeight: '600'
+        fontWeight: '600',
+        color: Colors.mineShaft
     },
     nameTagText: {
         color: Colors.grey700,
