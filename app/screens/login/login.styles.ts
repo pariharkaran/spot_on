@@ -104,5 +104,9 @@ export const styles = StyleSheet.create({
         width: 100, // Set the width as per your needs
         height: 50, // Set the height as per your needs
         resizeMode: 'contain'
+    },
+
+    countryCodeModal: {
+        height: isIos ? responsiveHeight(40) : responsiveHeight(45)
     }
 })

@@ -105,7 +105,7 @@ export const Login: React.FC = () => {
                                 </TouchableOpacity>
 
                                 <TextInput
-                                    placeholder={locals.mobileNumber}
+                                    placeholder={locals.enterMobileNumberText}
                                     placeholderTextColor={Colors.baliHai}
                                     keyboardType="number-pad"
                                     value={mobileNumber}
@@ -138,7 +138,11 @@ export const Login: React.FC = () => {
                                     setCountryCode(item.dial_code)
                                     setShow(false)
                                 }}
+                                onBackdropPress={() => {
+                                    setShow(false)
+                                }}
                                 style={{
+                                    modal: styles.countryCodeModal,
                                     dialCode: {
                                         color: Colors.black
                                     },
