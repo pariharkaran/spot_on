@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native'
 import {Colors} from '../../theme/colors'
+import {responsiveFont, responsiveWidth} from '../../utils/scaling'
 
 export const styles = StyleSheet.create({
     parentContainer: {
@@ -9,14 +10,14 @@ export const styles = StyleSheet.create({
         backgroundColor: Colors.lightBlue
     },
     headerWrapper: {
-        padding: 10,
+        padding: 13,
         flexDirection: 'row',
         alignItems: 'center'
     },
     headerText: {
-        marginHorizontal: 15,
+        marginHorizontal: responsiveWidth(3),
         color: Colors.textBlack,
-        fontSize: 16,
+        fontSize: responsiveFont(16),
         fontWeight: '600'
     },
     mainContainer: {
