@@ -1,5 +1,9 @@
 import {useCallback} from 'react'
 import {
+    EmployeePersonalAddressResponse,
+    EmployeePersonalProfileRequestBody,
+    EmployeePersonalProfileResponse,
+    EmployeePersonalWorkResponse,
     ResendOtpRequestBody,
     ResendOtpResponse,
     SendOtpRequestBody,
@@ -69,9 +73,50 @@ export const useAuthApiServices = () => {
         [AuthApi]
     )
 
+    const employePersonalDetails = useCallback(
+        async (data: FormData) => {
+            console.log('FormData received >>>>>>', data)
+
+            // Ensure Axios headers are correctly set for FormData
+            const result = (await AuthApi.employePersonalDetails(
+                data
+            )) as ApiSuccessRes<EmployeePersonalProfileResponse>
+
+            return result
+        },
+        [AuthApi]
+    )
+
+    const employeWorkDetails = useCallback(
+        async (data: FormData) => {
+            console.log('employe work details > form data > ', data)
+
+            const result = (await AuthApi.employeWorkDetails(
+                data
+            )) as ApiSuccessRes<EmployeePersonalWorkResponse>
+
+            return result
+        },
+        [AuthApi]
+    )
+
+    const employeAddressDetails = useCallback(
+        async (data: FormData) => {
+            console.log(' employee addressb details > formdata > ', data)
+            const result = (await AuthApi.employeAddressDetails(
+                data
+            )) as ApiSuccessRes<EmployeePersonalAddressResponse>
+
+            return result
+        },
+        [AuthApi]
+    )
     return {
         sendOtp,
         verifyOtpAndLogin,
-        resendOtp
+        resendOtp,
+        employePersonalDetails,
+        employeWorkDetails,
+        employeAddressDetails
     }
 }

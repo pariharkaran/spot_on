@@ -6,7 +6,8 @@ import {
     TextInput,
     View,
     ScrollView,
-    Platform
+    Platform,
+    Image
 } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import {Colors} from '../../../theme/colors'
@@ -16,28 +17,54 @@ import {isPhoneNumberValid} from '../../../utils/validation'
 import {BasicTextInput} from '../../../components/BasicTextInput'
 import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group'
 import {Dropdown} from 'react-native-element-dropdown'
-import {BloodGroup} from '../../../GlobalTypes'
+import {BloodGroup, BloodGroupIndex} from '../../../GlobalTypes'
 import {responsiveFont} from '../../../utils/scaling'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {useProfile} from '../profile.hooks'
+import ImagePicker from 'react-native-image-crop-picker'
 
 const isIos = Platform.OS === 'ios'
-export const Personal: React.FC = () => {
+export const Personal: React.FC = ({onPress}) => {
     const {width} = useWindowDimensions()
 
     const [show, setShow] = useState(false)
-    const [countryCode, setCountryCode] = useState('+91')
-    const [mobileNumber, setMobileNumber] = useState('')
+
     const [isNumberInputInFocus, setIsNumberInputInFocus] = useState(false)
     const [isPhoneNumberCorrect, setIsPhoneNumberCorrect] = useState(false)
 
+    const {
+        profileImage,
+        setProfileImage,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
+        countryCode,
+        setCountryCode,
+        mobileNumber,
+        setMobileNumber,
+        companyEmailId,
+        setCompanyEmailId,
+        personalEmailId,
+        setPersonalEmailId,
+        gender,
+        setGender,
+        bloodGroup,
+        setBloodGroup,
+        pincode,
+        setPincode,
+        submitEmployePersonalDetails,
+        setSelectedSection,
+        sections,
+        setSections,
+        selectedSection
+    } = useProfile()
     useEffect(() => {
         const phoneNumberValidityCheck =
             mobileNumber.length > 0 && isPhoneNumberValid(mobileNumber)
 
         setIsPhoneNumberCorrect(phoneNumberValidityCheck)
     }, [mobileNumber])
-
-    const [selectedId, setSelectedId] = useState('')
 
     const bloodGroupData = Object.values(BloodGroup).map(bloodGroup => ({
         label: bloodGroup,
@@ -49,7 +76,7 @@ export const Personal: React.FC = () => {
             id: '1', // acts as primary key, should be unique and non-empty string
             label: 'Male',
             value: 'male',
-            ...(selectedId === '1'
+            ...(gender === '1'
                 ? {
                       borderColor: Colors.primaryBlue,
                       borderSize: 5,
@@ -65,7 +92,7 @@ export const Personal: React.FC = () => {
             id: '2',
             label: 'Female',
             value: 'female',
-            ...(selectedId === '2'
+            ...(gender === '2'
                 ? {
                       borderColor: Colors.primaryBlue,
                       borderSize: 5,
@@ -81,7 +108,7 @@ export const Personal: React.FC = () => {
             id: '3',
             label: 'Other',
             value: 'other',
-            ...(selectedId === '3'
+            ...(gender === '3'
                 ? {
                       borderColor: Colors.primaryBlue,
                       borderSize: 5,
@@ -107,14 +134,46 @@ export const Personal: React.FC = () => {
                     <Text style={styles.profileImageText}>Profile Image</Text>
                     <View style={styles.uploadProfileContainer}>
                         <View>
-                            <DashedCircleAvatar />
+                            {profileImage ? (
+                                <Image
+                                    source={{uri: profileImage}}
+                                    style={{
+                                        width: 80, // Adjust as needed
+                                        height: 80, // Adjust as needed
+                                        borderRadius: 50, // For circular shape
+                                        borderWidth: 1,
+                                        borderColor: Colors.primaryBlue
+                                    }}
+                                />
+                            ) : (
+                                <DashedCircleAvatar />
+                            )}
                         </View>
                         <View>
                             <Text style={styles.uploadText}>
                                 Please upload only JPG, JPEG, PNG files, File
                                 size more than 5 MB not allowed.
                             </Text>
-                            <TouchableOpacity style={styles.uploadImageButton}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    ImagePicker.openPicker({
+                                        width: 300,
+                                        height: 400,
+                                        cropping: true,
+                                        cropperCircleOverlay: true
+                                    })
+                                        .then(image => {
+                                            setProfileImage(image.path)
+                                        })
+                                        .catch(err => {
+                                            console.log(
+                                                'Error > image picker >>>>>>>> ',
+                                                err
+                                            )
+                                        })
+                                }}
+                                style={styles.uploadImageButton}
+                            >
                                 <UploadImageButton />
                             </TouchableOpacity>
                         </View>
@@ -126,6 +185,10 @@ export const Personal: React.FC = () => {
                         <View>
                             <Text style={styles.nameTagText}>First Name</Text>
                             <TextInput
+                                value={firstName}
+                                onChangeText={text => {
+                                    setFirstName(text)
+                                }}
                                 cursorColor={Colors.primaryBlue}
                                 style={[
                                     styles.nameInput,
@@ -136,6 +199,10 @@ export const Personal: React.FC = () => {
                         <View>
                             <Text style={styles.nameTagText}>Last Name</Text>
                             <TextInput
+                                value={lastName}
+                                onChangeText={text => {
+                                    setLastName(text)
+                                }}
                                 cursorColor={Colors.primaryBlue}
                                 style={[
                                     styles.nameInput,
@@ -161,11 +228,21 @@ export const Personal: React.FC = () => {
                 </View>
                 <View style={{marginTop: 15, marginHorizontal: 15}}>
                     <Text style={styles.nameTagText}>Company Email ID</Text>
-                    <BasicTextInput />
+                    <BasicTextInput
+                        value={companyEmailId}
+                        onChange={text => {
+                            setCompanyEmailId(text)
+                        }}
+                    />
                 </View>
                 <View style={{marginTop: 15, marginHorizontal: 15}}>
                     <Text style={styles.nameTagText}>Personal Email ID</Text>
-                    <BasicTextInput />
+                    <BasicTextInput
+                        value={personalEmailId}
+                        onChange={text => {
+                            setPersonalEmailId(text)
+                        }}
+                    />
                 </View>
                 <View style={{marginTop: 15, marginHorizontal: 15}}>
                     <Text style={styles.nameTagText}>Gender</Text>
@@ -173,9 +250,12 @@ export const Personal: React.FC = () => {
                         labelStyle={{color: Colors.black}}
                         radioButtons={radioButtons}
                         onPress={id => {
-                            setSelectedId(id)
+                            // setSelectedId(id)
+                            setGender(id)
                         }}
-                        selectedId={selectedId}
+                        // selectedId={selectedId}
+
+                        selectedId={gender}
                         layout="row"
                     />
                 </View>
@@ -190,10 +270,17 @@ export const Personal: React.FC = () => {
                         }}
                     >
                         <Dropdown
+                            value={bloodGroup}
                             data={bloodGroupData}
                             labelField="label"
                             valueField="value"
-                            onChange={() => {}}
+                            onChange={text => {
+                                console.log(
+                                    'on change > blood group ?>>>>>> ',
+                                    text
+                                )
+                                setBloodGroup(text)
+                            }}
                             placeholder="Select your blood group"
                             placeholderStyle={{color: Colors.black}}
                             itemTextStyle={{color: Colors.black}}
@@ -203,10 +290,32 @@ export const Personal: React.FC = () => {
                 </View>
                 <View style={{marginTop: 15, marginHorizontal: 15}}>
                     <Text style={styles.nameTagText}>Pincode</Text>
-                    <BasicTextInput placeholderText={'Enter your Pincode'} />
+                    <BasicTextInput
+                        placeholderText={'Enter your Pincode'}
+                        value={pincode}
+                        onChange={text => {
+                            setPincode(text)
+                        }}
+                    />
                 </View>
 
-                <TouchableOpacity style={styles.saveButton}>
+                <TouchableOpacity
+                    onPress={async () => {
+                        await submitEmployePersonalDetails()
+
+                        //WIP
+
+                        setSelectedSection(2)
+                        const updatedSections = sections.map(item => {
+                            return {...item, isActive: item.id === 2}
+                        })
+
+                        console.log('updatedSections', updatedSections)
+
+                        setSections(updatedSections)
+                    }}
+                    style={styles.saveButton}
+                >
                     <Text style={styles.saveButtonText}>Save</Text>
                 </TouchableOpacity>
             </ScrollView>

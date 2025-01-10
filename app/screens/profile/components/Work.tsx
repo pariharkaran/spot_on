@@ -8,15 +8,51 @@ import {
 } from 'react-native'
 import {Colors} from '../../../theme/colors'
 import {Dropdown} from 'react-native-element-dropdown'
-import {BasicTextInput} from '../../../components/BasicTextInput'
+
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {useProfile} from '../profile.hooks'
+import {
+    Designation,
+    Job_Location,
+    work_country,
+    work_State
+} from '../../../GlobalTypes'
 
 export const Work: React.FC = () => {
-    const data = [
-        {label: 'Item 1', value: '1'},
-        {label: 'Item 2', value: '2'}
-    ]
+    const designationData = Object.values(Designation).map(designation => ({
+        label: designation,
+        value: designation
+    }))
 
+    const jobLocationData = Object.values(Job_Location).map(
+        jobLocationValues => ({
+            label: jobLocationValues,
+            value: jobLocationValues
+        })
+    )
+
+    const workStateData = Object.values(work_State).map(workStateValues => ({
+        label: workStateValues,
+        value: workStateValues
+    }))
+
+    const workCountryData = Object.values(work_country).map(
+        workCountryValues => ({
+            label: workCountryValues,
+            value: workCountryValues
+        })
+    )
+    const {
+        submitEmployeWorkDetails,
+        designation,
+        setDesignation,
+        jobLocation,
+        setJobLocation,
+        workState,
+        setWorkState,
+        workCountry,
+        setWorkCountry
+    } = useProfile()
     return (
         <KeyboardAwareScrollView>
             <ScrollView style={styles.mainContainer}>
@@ -34,10 +70,13 @@ export const Work: React.FC = () => {
                         }}
                     >
                         <Dropdown
-                            data={data}
+                            data={designationData}
+                            value={designation}
                             labelField="label"
                             valueField="value"
-                            onChange={() => {}}
+                            onChange={text => {
+                                setDesignation(text)
+                            }}
                             placeholder="Select Your Designation"
                             placeholderStyle={{color: Colors.black}}
                             itemTextStyle={{color: Colors.black}}
@@ -47,17 +86,85 @@ export const Work: React.FC = () => {
                 </View>
                 <View style={{marginTop: 15, marginHorizontal: 15}}>
                     <Text style={styles.nameTagText}>Job Location</Text>
-                    <BasicTextInput />
+                    <View
+                        style={{
+                            borderWidth: 1,
+                            borderColor: Colors.grey400,
+                            padding: 15,
+                            borderRadius: 8
+                        }}
+                    >
+                        <Dropdown
+                            data={jobLocationData}
+                            value={jobLocation}
+                            labelField="label"
+                            valueField="value"
+                            onChange={text => {
+                                setJobLocation(text)
+                            }}
+                            placeholder="Select Your job location"
+                            placeholderStyle={{color: Colors.black}}
+                            itemTextStyle={{color: Colors.black}}
+                            selectedTextStyle={{color: Colors.black}}
+                        />
+                    </View>
                 </View>
                 <View style={{marginTop: 15, marginHorizontal: 15}}>
                     <Text style={styles.nameTagText}>Work State</Text>
-                    <BasicTextInput />
+                    <View
+                        style={{
+                            borderWidth: 1,
+                            borderColor: Colors.grey400,
+                            padding: 15,
+                            borderRadius: 8
+                        }}
+                    >
+                        <Dropdown
+                            data={workStateData}
+                            value={workState}
+                            labelField="label"
+                            valueField="value"
+                            onChange={text => {
+                                setWorkState(text)
+                            }}
+                            placeholder="Select Your work state"
+                            placeholderStyle={{color: Colors.black}}
+                            itemTextStyle={{color: Colors.black}}
+                            selectedTextStyle={{color: Colors.black}}
+                        />
+                    </View>
                 </View>
                 <View style={{marginTop: 15, marginHorizontal: 15}}>
                     <Text style={styles.nameTagText}>Work Country</Text>
-                    <BasicTextInput />
+                    <View
+                        style={{
+                            borderWidth: 1,
+                            borderColor: Colors.grey400,
+                            padding: 15,
+                            borderRadius: 8
+                        }}
+                    >
+                        <Dropdown
+                            data={workCountryData}
+                            value={workCountry}
+                            labelField="label"
+                            valueField="value"
+                            onChange={text => {
+                                setWorkCountry(text)
+                            }}
+                            placeholder="Select Your work country"
+                            placeholderStyle={{color: Colors.black}}
+                            itemTextStyle={{color: Colors.black}}
+                            selectedTextStyle={{color: Colors.black}}
+                        />
+                    </View>
                 </View>
-                <TouchableOpacity style={styles.saveButton}>
+                <TouchableOpacity
+                    onPress={() => {
+                        submitEmployeWorkDetails()
+                    }}
+                    style={styles.saveButton}
+                >
                     <Text style={styles.saveButtonText}>Save</Text>
                 </TouchableOpacity>
             </ScrollView>

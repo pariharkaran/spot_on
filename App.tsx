@@ -4,20 +4,23 @@ import {NavigationContainer} from '@react-navigation/native'
 import {MainStack} from './app/navigation/MainStack'
 import {ThemeProvider} from './app/context/ThemeContext'
 import {ApiServicesWrapper} from './app/api/ApiServiceWrapper'
-import store from './app/redux/store/store'
+import {store, persistor} from './app/redux/store/store'
 import {Provider} from 'react-redux'
+import {PersistGate} from 'redux-persist/integration/react'
 
 const App: React.FC = () => {
     return (
-        <ApiServicesWrapper>
-            <Provider store={store}>
-                <ThemeProvider>
-                    <NavigationContainer>
-                        <MainStack />
-                    </NavigationContainer>
-                </ThemeProvider>
-            </Provider>
-        </ApiServicesWrapper>
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <NavigationContainer>
+                    <ApiServicesWrapper>
+                        <ThemeProvider>
+                            <MainStack />
+                        </ThemeProvider>
+                    </ApiServicesWrapper>
+                </NavigationContainer>
+            </PersistGate>
+        </Provider>
     )
 }
 

@@ -6,30 +6,22 @@ import {
     FlatList,
     useWindowDimensions
 } from 'react-native'
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import {Colors} from '../../../theme/colors'
 import {Personal} from './Personal'
 import {Work} from './Work'
 import {Address} from './Address'
+import {useProfile} from '../profile.hooks'
 
 type ISections = {
     id: number
     name: string
     isActive: boolean
 }
-
-const initialSections: ISections[] = [
-    {id: 1, name: 'Personal', isActive: true},
-    {id: 2, name: 'Work', isActive: false},
-    {id: 3, name: 'Address', isActive: false}
-]
-
 export const ProfileSections: React.FC = () => {
     const {width} = useWindowDimensions()
-
-    const [selectedSection, setSelectedSection] = useState(1)
-
-    const [sections, setSections] = useState<ISections[]>(initialSections)
+    const {selectedSection, setSelectedSection, sections, setSections} =
+        useProfile()
 
     const SelectedSection: React.FC = () => {
         switch (selectedSection) {
@@ -43,8 +35,13 @@ export const ProfileSections: React.FC = () => {
                 return <Personal />
         }
     }
-
+    console.log(
+        'ProfileSections > check profile section tsx >> sections >> ',
+        sections
+    )
     const SectionItem: React.FC<ISections> = ({id, isActive, name}) => {
+        console.log('selectedSection params hook', sections, name)
+
         return (
             <TouchableOpacity
                 style={[
@@ -62,7 +59,14 @@ export const ProfileSections: React.FC = () => {
                         return {...item, isActive: item.id === id}
                     })
 
-                    setSections(updatedSections)
+                    setSections(prevSections =>
+                        prevSections.map(item => ({
+                            ...item,
+                            isActive: item.id === id
+                        }))
+                    )
+
+                    // setSections(updatedSections)
                 }}
             >
                 <Text
@@ -84,6 +88,8 @@ export const ProfileSections: React.FC = () => {
                     data={sections}
                     renderItem={({item}) => <SectionItem {...item} />}
                     contentContainerStyle={styles.tabsContainer}
+                    extraData={sections}
+                    keyExtractor={item => item.id.toString()}
                 />
             </View>
             <View style={styles.divider} />

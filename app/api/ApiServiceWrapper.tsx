@@ -7,6 +7,7 @@ import {
     ApiServicesContextValues
 } from './ApiServicesContext'
 import {Alert} from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const TIMEOUT = 150000
 
@@ -34,6 +35,18 @@ function ApiServicesWrapper(props: PropsWithChildren) {
             }
         })
 
+        axiosInstance.interceptors.request.use(
+            async config => {
+                const token = await AsyncStorage.getItem('accessToken')
+                if (token) {
+                    config.headers.Authorization = `Bearer ${token}`
+                }
+                return config
+            },
+            error => {
+                return Promise.reject(error)
+            }
+        )
         axiosInstance.interceptors.response.use(
             response => {
                 if (response.data?.Error === 'Invalid Token') {

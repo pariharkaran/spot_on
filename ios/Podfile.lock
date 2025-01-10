@@ -1173,10 +1173,12 @@ PODS:
     - React-logger (= 0.74.5)
     - React-perflogger (= 0.74.5)
     - React-utils (= 0.74.5)
-  - RNCAsyncStorage (1.24.0):
+  - RNCAsyncStorage (2.1.0):
     - React-Core
   - RNCCheckbox (0.5.17):
     - BEMCheckBox (~> 1.4)
+    - React-Core
+  - RNCClipboard (1.14.1):
     - React-Core
   - RNGestureHandler (2.18.1):
     - DoubleConversion
@@ -1199,6 +1201,15 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNImageCropPicker (0.41.6):
+    - React-Core
+    - React-RCTImage
+    - RNImageCropPicker/QBImagePickerController (= 0.41.6)
+    - TOCropViewController (~> 2.7.4)
+  - RNImageCropPicker/QBImagePickerController (0.41.6):
+    - React-Core
+    - React-RCTImage
+    - TOCropViewController (~> 2.7.4)
   - RNReanimated (3.11.0):
     - DoubleConversion
     - glog
@@ -1245,6 +1256,7 @@ PODS:
   - RNSVG (15.5.0):
     - React-Core
   - SocketRocket (0.7.0)
+  - TOCropViewController (2.7.4)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -1308,7 +1320,9 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCCheckbox (from `../node_modules/@react-native-community/checkbox`)"
+  - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -1318,6 +1332,7 @@ SPEC REPOS:
   trunk:
     - BEMCheckBox
     - SocketRocket
+    - TOCropViewController
 
 EXTERNAL SOURCES:
   boost:
@@ -1437,8 +1452,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCCheckbox:
     :path: "../node_modules/@react-native-community/checkbox"
+  RNCClipboard:
+    :path: "../node_modules/@react-native-clipboard/clipboard"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNImageCropPicker:
+    :path: "../node_modules/react-native-image-crop-picker"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -1506,14 +1525,17 @@ SPEC CHECKSUMS:
   React-runtimescheduler: cfbe85c3510c541ec6dc815c7729b41304b67961
   React-utils: f242eb7e7889419d979ca0e1c02ccc0ea6e43b29
   ReactCommon: f7da14a8827b72704169a48c929bcde802698361
-  RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
+  RNCAsyncStorage: cc6479c4acd84cc7004946946c8afe30b018184d
   RNCCheckbox: a3ca9978cb0846b981d28da4e9914bd437403d77
+  RNCClipboard: 0a720adef5ec193aa0e3de24c3977222c7e52a37
   RNGestureHandler: efed690b8493a00b99654043daeb1335276ac4a2
+  RNImageCropPicker: 8e39c01f205e00d739c31e682f068aac315587bf
   RNReanimated: 7ad0f08a845cb60955ee5d461d2156d7b9707118
   RNScreens: aa943ad421c3ced3ef5a47ede02b0cbfc43a012e
   RNSVG: b986585e367f4a49d8aa43065066cc9c290b3d9b
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  Yoga: 950bbfd7e6f04790fdb51149ed51df41f329fcc8
+  TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
+  Yoga: 2246eea72aaf1b816a68a35e6e4b74563653ae09
 
 PODFILE CHECKSUM: 78c3866486f18171cda59fc646b579b26fe93d02
 

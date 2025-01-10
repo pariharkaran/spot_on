@@ -61,10 +61,66 @@ export enum BloodGroup {
     O_NEGATIVE = 'O-'
 }
 
-export type EmployeePersonalProfileRequestBody = FormData
-export type EmployeWorkDetailsRequestBody = FormData
-export type EmployeAddressDetailsRequestBody = FormData
+export enum Designation {
+    FRONTEND = 'Frontend',
+    BACKEND = 'Backend',
+    QA_TESTING = 'QA'
+}
+
+export enum Job_Location {
+    AHMD = 'Ahmedabad',
+    RJKT = 'Rajkot',
+    SURAT = 'SURAT'
+}
+
+export enum work_State {
+    state_one = 'State_one',
+    state_two = 'State_two',
+    state_three = 'state_three'
+}
+
+export enum work_country {
+    counrty_one = 'country_one',
+    country_two = 'country_two',
+    country_three = 'country_three'
+}
+export type ProfilePicture = {
+    uri: string
+    type: string
+    name: string
+}
+export type EmployeePersonalProfileRequestBody = {
+    personal_email: string
+    emg_country_code: string
+    emg_mobile_no: string
+    fname: string
+    lname: string
+    profile_pic: File | null
+    gender_id: string
+    blood_group: string
+    pincode: string
+}
+
+export type EmployeWorkDetailsRequestBody = {
+    designation_id: number
+    work_country_id: number
+    work_state_id: number
+    work_city_id: number
+}
+
+export type EmployeAddressDetailsRequestBody = {
+    present_address: string
+    permanent_address: string
+}
 
 export type EmployeePersonalProfileResponse = {
+    success: boolean
+}
+
+export type EmployeePersonalWorkResponse = {
+    success: boolean
+}
+
+export type EmployeePersonalAddressResponse = {
     success: boolean
 }

@@ -3,7 +3,9 @@ import {useAuthApiServices} from '../../api/auth/useAuthApiServices'
 import {Alert, Platform} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {setUserDetails} from '../../redux/actions/VerifyOtpActions'
-
+import {useNavigation} from '@react-navigation/native'
+import {PROFILE, DASH_BOARD} from '../../navigation/navigationRoutes'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const isIos = Platform.OS === 'ios'
 export const useLogin = () => {
     const [show, setShow] = useState(false)
@@ -17,7 +19,7 @@ export const useLogin = () => {
 
     const {sendOtp, verifyOtpAndLogin, resendOtp} = useAuthApiServices()
     const dispatch = useDispatch()
-
+    const navigation = useNavigation()
     const submitSendOtp = async () => {
         try {
             if (!isPhoneNumberCorrect) return
@@ -49,10 +51,21 @@ export const useLogin = () => {
             if (response.success) {
                 Alert.alert('Login success')
                 const userDetails = response.data
+
                 dispatch(setUserDetails(userDetails))
                 setIsOtpViewVisible(false)
                 setMobileNumber('')
                 setIsNumberInputInFocus(false)
+                console.log(
+                    ' userDetails.data.token >>>>>>>>>>>>> ',
+                    userDetails.data.token
+                )
+                AsyncStorage.setItem('accessToken', userDetails.data.token)
+                if (userDetails?.data?.is_profile_filled) {
+                    navigation.navigate(DASH_BOARD)
+                } else {
+                    navigation.navigate(PROFILE)
+                }
             }
         } catch (e) {
             console.log('Login > submitVerifyOtp > catch: ', e)

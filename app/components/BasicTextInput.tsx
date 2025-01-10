@@ -10,6 +10,9 @@ interface IBasicTextInputProps {
     numberOfLines?: number
     height?: number
     placeholderText?: string
+    value?: string
+    onChange?: (text: string) => void
+    editable?: boolean
 }
 
 export const BasicTextInput: React.FC<IBasicTextInputProps> = ({
@@ -17,7 +20,10 @@ export const BasicTextInput: React.FC<IBasicTextInputProps> = ({
     multiline,
     numberOfLines,
     height,
-    placeholderText
+    placeholderText,
+    value,
+    onChange,
+    editable
 }) => {
     return (
         <View
@@ -28,6 +34,7 @@ export const BasicTextInput: React.FC<IBasicTextInputProps> = ({
             }}
         >
             <TextInput
+                value={value}
                 textAlignVertical="top"
                 keyboardType={keyboardType}
                 style={{
@@ -41,6 +48,8 @@ export const BasicTextInput: React.FC<IBasicTextInputProps> = ({
                 numberOfLines={numberOfLines}
                 placeholder={placeholderText}
                 placeholderTextColor={Colors.borderGrey}
+                onChangeText={onChange}
+                editable={editable}
             />
         </View>
     )

@@ -4,8 +4,25 @@ import {Colors} from '../../../theme/colors'
 import {BasicTextInput} from '../../../components/BasicTextInput'
 import CheckBox from '@react-native-community/checkbox'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {useProfile} from '../profile.hooks'
+
 export const Address: React.FC = () => {
     const [toggleCheckBox, setToggleCheckBox] = useState(false)
+    const {
+        presentAddress,
+        setPresentAddress,
+        permanentAddress,
+        setPermanentAddress,
+        submitEmployeAddressDetails
+    } = useProfile()
+
+    // Handle checkbox toggle
+    const handleCheckBoxToggle = (newValue: boolean) => {
+        setToggleCheckBox(newValue)
+        if (newValue) {
+            setPermanentAddress(presentAddress) // Sync permanent address with present address
+        }
+    }
 
     return (
         <KeyboardAwareScrollView>
@@ -13,6 +30,8 @@ export const Address: React.FC = () => {
                 <View style={styles.titleContainer}>
                     <Text style={styles.titleText}>Address Details</Text>
                 </View>
+
+                {/* Present Address Input */}
                 <View style={{marginTop: 15, marginHorizontal: 15}}>
                     <Text style={styles.nameTagText}>Present Address</Text>
                     <BasicTextInput
@@ -20,8 +39,17 @@ export const Address: React.FC = () => {
                         numberOfLines={4}
                         height={120}
                         placeholderText={'Enter Your present address Here'}
+                        value={presentAddress}
+                        onChange={text => {
+                            setPresentAddress(text)
+                            if (toggleCheckBox) {
+                                setPermanentAddress(text) // Update permanent address dynamically
+                            }
+                        }}
                     />
                 </View>
+
+                {/* Permanent Address Input */}
                 <View style={{marginTop: 15, marginHorizontal: 15}}>
                     <Text style={styles.nameTagText}>Permanent Address</Text>
                     <BasicTextInput
@@ -29,8 +57,13 @@ export const Address: React.FC = () => {
                         numberOfLines={4}
                         height={120}
                         placeholderText={'Enter Your permanent address Here'}
+                        value={permanentAddress}
+                        onChange={text => setPermanentAddress(text)}
+                        editable={!toggleCheckBox} // Disable input when checkbox is checked
                     />
                 </View>
+
+                {/* Checkbox */}
                 <View
                     style={{
                         marginTop: 15,
@@ -45,22 +78,29 @@ export const Address: React.FC = () => {
                         animationDuration={0.5}
                         disabled={false}
                         value={toggleCheckBox}
-                        onValueChange={newValue => setToggleCheckBox(newValue)}
+                        onValueChange={handleCheckBoxToggle}
                         boxType="square"
                         tintColor={Colors.borderGrey900}
                         lineWidth={2.0}
                         onAnimationType="one-stroke"
                         offAnimationType="one-stroke"
                         tintColors={{
-                            true: Colors.primaryBlue, // Color when checkbox is checked
-                            false: Colors.borderGrey900 // Color when checkbox is unchecked
+                            true: Colors.primaryBlue,
+                            false: Colors.borderGrey900
                         }}
                     />
                     <Text style={styles.nameTagText}>
-                        Same as Permanent Address
+                        Same as Present Address
                     </Text>
                 </View>
-                <TouchableOpacity style={styles.saveButton}>
+
+                {/* Save Button */}
+                <TouchableOpacity
+                    style={styles.saveButton}
+                    onPress={() => {
+                        submitEmployeAddressDetails()
+                    }}
+                >
                     <Text style={styles.saveButtonText}>Save</Text>
                 </TouchableOpacity>
             </View>

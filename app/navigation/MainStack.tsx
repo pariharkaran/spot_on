@@ -1,9 +1,10 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import React from 'react'
 import {Login} from '../screens/login/Login'
-import {LOGIN, DASH_BOARD, PROFILE} from './navigationRoutes'
 import {DashBoard} from '../screens/dashBoard/DashBoard'
 import {Profile} from '../screens/profile/Profile'
+
+import {LOGIN, DASH_BOARD, PROFILE} from './navigationRoutes'
 
 const Stack = createNativeStackNavigator()
 
@@ -12,7 +13,7 @@ export const MainStack: React.FC = () => {
 
     return (
         <Stack.Navigator
-            initialRouteName={isAccessTokenAvailable ? PROFILE : PROFILE} //add app's mainscreen in true condition
+            initialRouteName={!isAccessTokenAvailable ? PROFILE : LOGIN} //add app's mainscreen in true condition
             screenOptions={{
                 headerShown: false
             }}
