@@ -7,19 +7,22 @@ import {ApiServicesWrapper} from './app/api/ApiServiceWrapper'
 import {store, persistor} from './app/redux/store/store'
 import {Provider} from 'react-redux'
 import {PersistGate} from 'redux-persist/integration/react'
+import {ProfileProvider} from './app/screens/profile/ProfileContext'
 
 const App: React.FC = () => {
     return (
         <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <NavigationContainer>
-                    <ApiServicesWrapper>
-                        <ThemeProvider>
-                            <MainStack />
-                        </ThemeProvider>
-                    </ApiServicesWrapper>
-                </NavigationContainer>
-            </PersistGate>
+            <ProfileProvider>
+                <PersistGate loading={null} persistor={persistor}>
+                    <NavigationContainer>
+                        <ApiServicesWrapper>
+                            <ThemeProvider>
+                                <MainStack />
+                            </ThemeProvider>
+                        </ApiServicesWrapper>
+                    </NavigationContainer>
+                </PersistGate>
+            </ProfileProvider>
         </Provider>
     )
 }

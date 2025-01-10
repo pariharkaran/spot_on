@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react'
 import {useAuthApiServices} from '../../api/auth/useAuthApiServices'
 
 import {Alert} from 'react-native'
+import {useProfileContext} from './ProfileContext'
 type ISections = {
     id: number
     name: string
@@ -14,8 +15,11 @@ const initialSections: ISections[] = [
     {id: 3, name: 'Address', isActive: false}
 ]
 export const useProfile = () => {
-    const [selectedSection, setSelectedSection] = useState(1)
-    const [sections, setSections] = useState<ISections[]>(initialSections)
+    const {selectedSection, setSelectedSection, sections, setSections} =
+        useProfileContext()
+
+    // const [selectedSection, setSelectedSection] = useState(1)
+    // const [sections, setSections] = useState<ISections[]>(initialSections)
     // useEffect(() => {
     //     console.log('Sections state updated:', sections)
     //     setSections(sections)

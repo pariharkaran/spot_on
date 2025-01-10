@@ -22,6 +22,7 @@ import {responsiveFont} from '../../../utils/scaling'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {useProfile} from '../profile.hooks'
 import ImagePicker from 'react-native-image-crop-picker'
+import {useProfileContext} from '../ProfileContext'
 
 const isIos = Platform.OS === 'ios'
 export const Personal: React.FC = ({onPress}) => {
@@ -59,6 +60,9 @@ export const Personal: React.FC = ({onPress}) => {
         setSections,
         selectedSection
     } = useProfile()
+
+    const {setSelectedSection: temp} = useProfileContext()
+
     useEffect(() => {
         const phoneNumberValidityCheck =
             mobileNumber.length > 0 && isPhoneNumberValid(mobileNumber)
@@ -301,7 +305,7 @@ export const Personal: React.FC = ({onPress}) => {
 
                 <TouchableOpacity
                     onPress={async () => {
-                        await submitEmployePersonalDetails()
+                        // await submitEmployePersonalDetails()
 
                         //WIP
 
