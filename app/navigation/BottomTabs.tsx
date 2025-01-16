@@ -1,7 +1,10 @@
 import React from 'react'
-import {SafeAreaView, StyleSheet, TouchableOpacity, View} from 'react-native'
+import {StyleSheet, TouchableOpacity, View} from 'react-native'
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import {
+    BottomTabBarProps,
+    createBottomTabNavigator
+} from '@react-navigation/bottom-tabs'
 
 import {
     Home as HomeIcon,
@@ -37,7 +40,11 @@ export const BottomTabs: React.FC = () => {
     )
 }
 
-function TabBar({state, descriptors, navigation}) {
+const TabBar: React.FC<BottomTabBarProps> = ({
+    state,
+    descriptors,
+    navigation
+}) => {
     return (
         <View style={styles.container}>
             {state.routes.map((route, index) => {
@@ -79,6 +86,7 @@ function TabBar({state, descriptors, navigation}) {
 
                 return (
                     <TouchableOpacity
+                        key={`bottom_tab_${index}`}
                         activeOpacity={0.9}
                         disabled={isFocused}
                         onPress={onPress}

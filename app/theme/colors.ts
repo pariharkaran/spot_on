@@ -6,6 +6,7 @@ export const Colors = {
     mineShaft: '#212121',
     pattensBlue: '#D7E7FF',
     punchRed: '#D62929',
+    punchRed20: '#D6292920',
     scorpionGray: '#5B5B5B',
     curiousBlue: '#1B82E6',
     silver: '#CCCCCC',
@@ -17,5 +18,14 @@ export const Colors = {
     borderGrey900: '#BBC9DD',
     grey400: '#88A8C9',
     primaryLightBlue: '#C8DCF1',
-    dabysGrey: '#5C5D61'
+    dabysGrey: '#5C5D61',
+    dodgerBlue: '#1E90FF',
+    dodgerBlue20: '#1E90FF20',
+    transparent: '#00000000',
+    cultured: '#F8F8F8',
+    uclaBlue: '#5C7894',
+    ufoGreen: '#32CD78',
+    ufoGreen20: '#32CD7820',
+    deepSaffron: '#FFA02D',
+    deepSaffron20: '#FFA02D20'
 }

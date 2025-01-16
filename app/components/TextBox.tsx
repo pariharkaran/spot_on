@@ -1,5 +1,6 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, Text as RNText, TextProps, TextStyle} from 'react-native'
+
 import {Colors} from '../theme/colors'
 import fonts from '../constants/fonts'
 
@@ -23,7 +24,7 @@ export const TextBox: React.FC<TextBoxProps> = ({
     color = Colors?.black,
     textAlign,
     style = {},
-    numberOfLines,
+    numberOfLines = 1,
     lineHeight,
     fontWeight,
     letterSpacing,

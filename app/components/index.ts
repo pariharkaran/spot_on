@@ -1,3 +1,5 @@
 import {TextBox} from './TextBox'
 import {SafeAreaWrapper} from './SafeAreaWrapper'
-export {SafeAreaWrapper, TextBox}
+import {Button} from './Button'
+
+export {Button, SafeAreaWrapper, TextBox}
