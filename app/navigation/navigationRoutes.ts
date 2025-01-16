@@ -5,6 +5,10 @@ export const PROFILE = 'Profile'
 export const PERSONAL = 'Personal'
 export const WORK = 'Work'
 export const ADDRESS = 'Address'
+export const HOME = 'Home'
+export const BOTTOM_TABS = 'BottomTabs'
+export const LEAVES = 'Leaves'
+export const EXPENSE = 'Expense'
 
 {
     /*  navigation types 

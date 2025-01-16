@@ -16,5 +16,6 @@ export const Colors = {
     grey700: '#46617B',
     borderGrey900: '#BBC9DD',
     grey400: '#88A8C9',
-    primaryLightBlue: '#C8DCF1'
+    primaryLightBlue: '#C8DCF1',
+    dabysGrey: '#5C5D61'
 }

@@ -305,18 +305,14 @@ export const Personal: React.FC = ({onPress}) => {
 
                 <TouchableOpacity
                     onPress={async () => {
-                        // await submitEmployePersonalDetails()
-
+                        await submitEmployePersonalDetails()
                         //WIP
-
-                        setSelectedSection(2)
-                        const updatedSections = sections.map(item => {
-                            return {...item, isActive: item.id === 2}
-                        })
-
-                        console.log('updatedSections', updatedSections)
-
-                        setSections(updatedSections)
+                        // setSelectedSection(2)
+                        // const updatedSections = sections.map(item => {
+                        //     return {...item, isActive: item.id === 2}
+                        // })
+                        // console.log('updatedSections', updatedSections)
+                        // setSections(updatedSections)
                     }}
                     style={styles.saveButton}
                 >

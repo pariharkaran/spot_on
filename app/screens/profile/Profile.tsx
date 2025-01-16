@@ -13,9 +13,7 @@ export const Profile: React.FC = () => {
             <SafeAreaView style={styles.headerContainer}>
                 <View style={styles.headerWrapper}>
                     <BackArrowRound />
-                    <Text style={styles.headerText}>
-                        Fill Profile {selectedSection}
-                    </Text>
+                    <Text style={styles.headerText}>Fill Profile</Text>
                 </View>
             </SafeAreaView>
             <View style={styles.mainContainer}>

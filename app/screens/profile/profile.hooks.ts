@@ -3,6 +3,8 @@ import {useAuthApiServices} from '../../api/auth/useAuthApiServices'
 
 import {Alert} from 'react-native'
 import {useProfileContext} from './ProfileContext'
+import {useNavigation} from '@react-navigation/native'
+import {DASH_BOARD} from '../../navigation/navigationRoutes'
 type ISections = {
     id: number
     name: string
@@ -18,13 +20,7 @@ export const useProfile = () => {
     const {selectedSection, setSelectedSection, sections, setSections} =
         useProfileContext()
 
-    // const [selectedSection, setSelectedSection] = useState(1)
-    // const [sections, setSections] = useState<ISections[]>(initialSections)
-    // useEffect(() => {
-    //     console.log('Sections state updated:', sections)
-    //     setSections(sections)
-    // }, [sections])
-    // Personal
+    const navigation = useNavigation()
     const [profileImage, setProfileImage] = useState(null)
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -146,6 +142,20 @@ export const useProfile = () => {
             console.log(' submit wmployee work details >>> resp > ', response)
             if (response.success) {
                 Alert.alert(response.data.message)
+
+                const update_section_id = 3
+                setSelectedSection(update_section_id)
+
+                let tempSections = [...sections]
+                tempSections = tempSections.map(item => {
+                    console.log('Updating section:', item)
+                    return {
+                        ...item,
+                        isActive: item.id === update_section_id
+                    }
+                })
+                setSections(tempSections)
+                console.log('tempSectionstempSections: ', tempSections)
             }
         } catch (err) {
             console.log(
@@ -182,7 +192,12 @@ export const useProfile = () => {
                 response
             )
             if (response.success) {
-                Alert.alert(response.data.message)
+                Alert.alert(response.data.message, '', [
+                    {
+                        text: 'Ok',
+                        onPress: () => navigation.navigate(DASH_BOARD) // Corrected onPress
+                    }
+                ])
             }
         } catch (err) {
             console.log('submit employee address details >> err > ', err)
