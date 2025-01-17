@@ -21,22 +21,21 @@ import {Colors} from '../theme/colors'
 import {Expense} from '../screens/expense/Expense'
 import {Leaves} from '../screens/leaves/Leaves'
 import fonts from '../constants/fonts'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 
 const Tabs = createBottomTabNavigator()
 
 export const BottomTabs: React.FC = () => {
     return (
-        <SafeAreaWrapper>
-            <Tabs.Navigator
-                tabBar={props => <TabBar {...props} />}
-                screenOptions={{headerShown: false}}
-            >
-                <Tabs.Screen name={HOME} component={Home} />
-                <Tabs.Screen name={LEAVES} component={Leaves} />
-                <Tabs.Screen name={EXPENSE} component={Expense} />
-                <Tabs.Screen name={PROFILE} component={Profile} />
-            </Tabs.Navigator>
-        </SafeAreaWrapper>
+        <Tabs.Navigator
+            tabBar={props => <TabBar {...props} />}
+            screenOptions={{headerShown: false}}
+        >
+            <Tabs.Screen name={HOME} component={Home} />
+            <Tabs.Screen name={LEAVES} component={Leaves} />
+            <Tabs.Screen name={EXPENSE} component={Expense} />
+            <Tabs.Screen name={PROFILE} component={Profile} />
+        </Tabs.Navigator>
     )
 }
 
@@ -45,8 +44,10 @@ const TabBar: React.FC<BottomTabBarProps> = ({
     descriptors,
     navigation
 }) => {
+    const insets = useSafeAreaInsets()
+
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, {paddingBottom: insets.bottom}]}>
             {state.routes.map((route, index) => {
                 const {options} = descriptors[route.key]
                 const label =

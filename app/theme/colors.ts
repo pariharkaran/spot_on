@@ -27,5 +27,11 @@ export const Colors = {
     ufoGreen: '#32CD78',
     ufoGreen20: '#32CD7820',
     deepSaffron: '#FFA02D',
-    deepSaffron20: '#FFA02D20'
+    deepSaffron20: '#FFA02D20',
+    bigStone: '#1A3349',
+    bridesMaid: '#FEE7E7',
+    chablis: '#FFF4F4',
+    greenHaze: '#059F4B',
+    frenchGray: '#C7C7CC',
+    fireFly: '#091825'
 }

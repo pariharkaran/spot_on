@@ -2,6 +2,7 @@ import React, {ReactNode} from 'react'
 import {
     GestureResponderEvent,
     StyleSheet,
+    TextStyle,
     TouchableOpacity,
     View
 } from 'react-native'
@@ -16,8 +17,10 @@ interface IButtonProps {
     titleSize?: number
     titleColor?: string
     titleType?: string
+    titleWeight?: TextStyle['fontWeight']
     icon?: ReactNode
     onPress?: React.Dispatch<React.SetStateAction<GestureResponderEvent>>
+    disabled?: boolean
     height?: number
     backgroundColor?: string
     borderColor?: string
@@ -30,8 +33,10 @@ export const Button: React.FC<IButtonProps> = ({
     titleSize,
     titleColor = Colors.white,
     titleType = fonts.sfPro,
+    titleWeight = '400',
     icon,
     onPress,
+    disabled,
     height = 5,
     backgroundColor = Colors.dodgerBlue,
     borderColor = Colors.transparent,
@@ -52,14 +57,20 @@ export const Button: React.FC<IButtonProps> = ({
             ]}
             onPress={onPress}
             activeOpacity={0.8}
+            disabled={disabled}
         >
             {icon && (
                 <>
                     {icon}
-                    <View style={{width: responsiveWidth(3)}} />
+                    <View style={{width: responsiveWidth(1)}} />
                 </>
             )}
-            <TextBox color={titleColor} size={titleSize} type={titleType}>
+            <TextBox
+                color={titleColor}
+                size={titleSize}
+                type={titleType}
+                fontWeight={titleWeight}
+            >
                 {title}
             </TextBox>
         </TouchableOpacity>
@@ -71,6 +82,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: responsiveHeight(0.1)
+        borderWidth: responsiveHeight(0.1),
+        paddingHorizontal: responsiveWidth(2)
     }
 })
