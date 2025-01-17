@@ -1,6 +1,7 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
 
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {
     BottomTabBarProps,
     createBottomTabNavigator
@@ -16,12 +17,11 @@ import {
 import {EXPENSE, HOME, LEAVES, PROFILE} from './navigationRoutes'
 import {Home} from '../screens/home/Home'
 import {Profile} from '../screens/profile/Profile'
-import {SafeAreaWrapper, TextBox} from '../components'
+import {TextBox} from '../components'
 import {Colors} from '../theme/colors'
 import {Expense} from '../screens/expense/Expense'
 import {Leaves} from '../screens/leaves/Leaves'
 import fonts from '../constants/fonts'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
 
 const Tabs = createBottomTabNavigator()
 
@@ -57,12 +57,6 @@ const TabBar: React.FC<BottomTabBarProps> = ({
                         ? options.title
                         : route.name
                 const isFocused = state.index === index
-                console.log(
-                    '\nrouteroute: ',
-                    index,
-                    isFocused,
-                    JSON.stringify(state)
-                )
 
                 const onPress = () => {
                     const event = navigation.emit({

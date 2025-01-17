@@ -25,6 +25,7 @@ export const Colors = {
     cultured: '#F8F8F8',
     uclaBlue: '#5C7894',
     ufoGreen: '#32CD78',
+    ufoGreen15: '#32CD7815',
     ufoGreen20: '#32CD7820',
     deepSaffron: '#FFA02D',
     deepSaffron20: '#FFA02D20',
@@ -33,5 +34,9 @@ export const Colors = {
     chablis: '#FFF4F4',
     greenHaze: '#059F4B',
     frenchGray: '#C7C7CC',
-    fireFly: '#091825'
+    fireFly: '#091825',
+    silverFoil: '#AEAEB2',
+    platinum: '#DBDFE9',
+    weldonBlue: '#7E95B0',
+    antiFlashWhite: '#F1F1F1'
 }
