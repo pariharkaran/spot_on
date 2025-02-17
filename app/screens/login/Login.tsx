@@ -17,6 +17,7 @@ import {OtpView} from '../../components/OtpView'
 import {isPhoneNumberValid} from '../../utils/validation'
 import {useLogin} from './login.hooks'
 import {DownArrow} from '../../assets/svg'
+import SplashScreen from 'react-native-splash-screen'
 
 export const Login: React.FC = () => {
     const {
@@ -37,6 +38,10 @@ export const Login: React.FC = () => {
         submitVerifyOtp,
         submitResendOtp
     } = useLogin()
+
+    useEffect(() => {
+        SplashScreen.hide()
+    }, [])
 
     useEffect(() => {
         const phoneNumberValidityCheck =
